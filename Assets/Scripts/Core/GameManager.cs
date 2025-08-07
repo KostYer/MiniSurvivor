@@ -1,4 +1,5 @@
 ﻿using System;
+using Cinemachine;
 using Spawn;
 using UI;
 using Unity.VisualScripting;
@@ -12,6 +13,8 @@ namespace Core
         private IPlayerSpawner _playerSpawner;
         private MainMenuUIController _uiController;
         
+        public CinemachineVirtualCamera virtualCamera;
+        
         public void Initialize(IInputProvider inputProvider, IPlayerSpawner playerSpawner, MainMenuUIController uiController)
         {
             _inputProvider = inputProvider;
@@ -23,6 +26,9 @@ namespace Core
         {
            var player = _playerSpawner.SpawnPlayer();
            player.Initialize(_inputProvider);
+           
+           virtualCamera.Follow = player.transform;
+           virtualCamera.LookAt =  player.transform;
         }
     }
 }
