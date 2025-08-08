@@ -8,7 +8,7 @@ namespace PlayerRelated
     {
         [SerializeField] private CharacterController _characterController;
         [SerializeField] private MovementSettings _movementSettings;
-        public IInputProvider InputProvider { get; set; }
+        private IInputProvider _inputProvider;
         
         private float _speed;
         private float _targetRotation;
@@ -21,11 +21,12 @@ namespace PlayerRelated
             _characterController = GetComponent<CharacterController>();
         }
 
-        private void Start()
+        public void Initialize(IInputProvider inputProvider)
         {
+            _inputProvider = inputProvider;
             _mainCamera = Camera.main;
         }
-
+ 
         private void Update()
         {
             Move();
@@ -36,13 +37,13 @@ namespace PlayerRelated
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _movementSettings.MovementSpeed;
     
-            if (InputProvider.InputDirection == Vector2.zero) targetSpeed = 0.0f;
+            if (_inputProvider.InputDirection == Vector2.zero) targetSpeed = 0.0f;
 
             // a reference to the players current horizontal velocity
             float currentHorizontalSpeed = new Vector3(_characterController.velocity.x, 0.0f, _characterController.velocity.z).magnitude;
 
             float speedOffset = 0.1f;
-            float inputMagnitude = InputProvider.InputDirection.magnitude;
+            float inputMagnitude = _inputProvider.InputDirection.magnitude;
 
             // accelerate or decelerate to target speed
             if (currentHorizontalSpeed < targetSpeed - speedOffset ||
@@ -64,11 +65,11 @@ namespace PlayerRelated
             if (_animationBlend < 0.01f) _animationBlend = 0f;*/
 
             // normalise input direction
-            Vector3 inputDirection = new Vector3(InputProvider.InputDirection.x, 0.0f, InputProvider.InputDirection.y).normalized;
+            Vector3 inputDirection = new Vector3(_inputProvider.InputDirection.x, 0.0f, _inputProvider.InputDirection.y).normalized;
 
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is a move input rotate player when the player is moving
-            if (InputProvider.InputDirection != Vector2.zero)
+            if (_inputProvider.InputDirection != Vector2.zero)
             {
                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _mainCamera.transform.eulerAngles.y;
                                 
@@ -93,7 +94,7 @@ namespace PlayerRelated
             GUILayout.BeginArea(new Rect(10, 10, 200, 100), GUI.skin.box);
             GUILayout.Label($"targetSpeed: {_debugTargetSpeed}");
             GUILayout.Label($"_speed: {_speed:F2}");
-            GUILayout.Label($"InputDirection: {InputProvider.InputDirection}");
+            GUILayout.Label($"InputDirection: {_inputProvider.InputDirection}");
             GUILayout.EndArea();
         }
     }
