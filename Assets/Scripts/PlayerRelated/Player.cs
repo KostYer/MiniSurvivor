@@ -1,6 +1,6 @@
-﻿using System;
-using Core;
+﻿using Core;
 using Factories;
+using PlayerUI;
 using Settings;
 using UnityEngine;
 
@@ -14,6 +14,7 @@ namespace PlayerRelated
         [SerializeField] private Shooter _shooter;
         [SerializeField] private Health _health;
         [SerializeField] private PlayerTargetProvider _playerTargetProvider;
+        [SerializeField] private RangeDrawerUI _rangeDrawerUI;
        
         [Space]
         [Header("Settings")]
@@ -21,6 +22,7 @@ namespace PlayerRelated
         [SerializeField] private ShootSettings _shootSettings;
         [SerializeField] private BulletConfigs _bulletConfigs;
         [SerializeField] private HealthSettings _healthSettings;
+        [SerializeField] private RangeUISettings _rangeUISettings;
           
 
         private void OnValidate()
@@ -37,7 +39,7 @@ namespace PlayerRelated
             _movement.Initialize(inputProvider, _movementSettings);
             _health.Initialize(_healthSettings);
             _shooter.Initialize(_playerTargetProvider, _shootSettings, _bulletConfigs);
-            
+           _rangeDrawerUI.Initialize(_rangeUISettings, _shootSettings);
          
             _wavesProvider = wavesProvider;
         }

@@ -30,14 +30,16 @@ namespace PlayerRelated
             {
                 var enemy = _wavesProvider.Enemies[i];
                 var distance = Vector3.Distance(transform.position, enemy.transform.position);
-                if (distance <= range && distance < minDistance)
+             //   if (distance > range) continue;
+                
+                if (distance < minDistance)
                 {
                     minDistance = distance;
                     target = enemy.transform.position;
                 }
             }
-           
-            return true;
+ 
+            return minDistance <= range;
         }
 
       
