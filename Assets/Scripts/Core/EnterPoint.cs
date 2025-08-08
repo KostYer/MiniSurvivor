@@ -14,14 +14,12 @@ public class EnterPoint : MonoBehaviour
     [SerializeField] private MainMenuUIController _uiController;
     [SerializeField] private WavesManager _wavesManager;
 
-    
-
-  private void OnValidate()
-  {
-      _gameManager   = GetComponent<GameManager>();
-      _inputProvider = GetComponent<InputProvider>();
-      _playerSpawner = GetComponent<PlayerSpawner>();
-  }
+      private void OnValidate()
+      {
+          _gameManager   = GetComponent<GameManager>();
+          _inputProvider = GetComponent<InputProvider>();
+          _playerSpawner = GetComponent<PlayerSpawner>();
+      }
 
     private void Awake()
     {
