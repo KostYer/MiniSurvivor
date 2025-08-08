@@ -5,9 +5,9 @@ namespace Factories
 {
     public class BulletFactory 
     {
-        public Bullet CreateBullet(BulletConfigs config, Vector3 pos, Quaternion rot, bool setLayer = true)
+        public Bullet CreateBullet(BulletConfigs config, Vector3 pos, bool setLayer = true)
         {
-            var bullet = Object.Instantiate(config.Prefab, pos, rot).GetComponent<Bullet>();
+            var bullet = Object.Instantiate(config.Prefab, pos, Quaternion.identity).GetComponent<Bullet>();
             
             if (setLayer)
             {
