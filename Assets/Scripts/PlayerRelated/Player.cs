@@ -15,6 +15,7 @@ namespace PlayerRelated
         [SerializeField] private Health _health;
         [SerializeField] private PlayerTargetProvider _playerTargetProvider;
         [SerializeField] private RangeDrawerUI _rangeDrawerUI;
+        [SerializeField] private HealthbarUI _healthbar;
        
         [Space]
         [Header("Settings")]
@@ -40,6 +41,8 @@ namespace PlayerRelated
             _health.Initialize(_healthSettings);
             _shooter.Initialize(_playerTargetProvider, _shootSettings, _bulletConfigs);
            _rangeDrawerUI.Initialize(_rangeUISettings, _shootSettings);
+           
+           _healthbar.Initialize(_health);
          
             _wavesProvider = wavesProvider;
         }

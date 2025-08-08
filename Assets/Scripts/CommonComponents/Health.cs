@@ -7,6 +7,7 @@ namespace PlayerRelated
     public class Health: MonoBehaviour
     {
         public event Action OnHealthDepleted = default;
+        public event Action<float> OnHealthChanged = default;
         
         private float _maxHealth;
         private float _health;
@@ -17,11 +18,13 @@ namespace PlayerRelated
         {
             _maxHealth = settings.MaxHealth;
             _health = settings.MaxHealth;
+            OnHealthChanged?.Invoke(_health/_maxHealth);
         }
 
         public void TakeDamage(float damage)
         {
             _health -= damage;
+            OnHealthChanged?.Invoke(_health/_maxHealth);
             if (_health <= 0f)
             {
                 OnHealthDepleted?.Invoke();
