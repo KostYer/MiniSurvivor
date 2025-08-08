@@ -10,8 +10,10 @@ public class EnterPoint : MonoBehaviour
     [SerializeField] private InputProvider _inputProvider = default;
     [SerializeField] private PlayerSpawner _playerSpawner;
     [SerializeField] private PlayerFactory _playerFactory;
+    [SerializeField] private EnemyFactory _enemyFactory;
+    [SerializeField] private EnemySpawner _enemySpawner;
     [SerializeField] private MainMenuUIController _uiController;
-
+    [SerializeField] private WavesManager _wavesManager;
 
   private void OnValidate()
   {
@@ -28,7 +30,12 @@ public class EnterPoint : MonoBehaviour
     private void BuildGraph()
     {
         _playerSpawner.Initialize(_playerFactory);
-        _gameManager.Initialize(_inputProvider, _playerSpawner, _uiController);
+        _enemySpawner.Initialize(_enemyFactory);
+        _wavesManager.Initialize(_enemySpawner);
+        _gameManager.Initialize(_inputProvider, _playerSpawner, _wavesManager, _uiController);
+      
+        
+       
         
     }
 }
