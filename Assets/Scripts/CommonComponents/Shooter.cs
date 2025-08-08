@@ -34,13 +34,12 @@ namespace PlayerRelated
 
         private void TryShoot()
         {
-           
-           var bullet = _bulletFactory.CreateBullet(_bulletConfigs, _shootPoint.position, Quaternion.identity);
-         
-           bullet.LaunchBullet(_bulletConfigs.Damage, _bulletConfigs.Speed, transform.forward);
+            if (_targetProvider.TryFindTarget(out var targetPos, 10f))
+            {
+                var bullet = _bulletFactory.CreateBullet(_bulletConfigs, _shootPoint.position);
+                var direction = (targetPos - _shootPoint.position).normalized;
+                bullet.LaunchBullet(_bulletConfigs.Damage, _bulletConfigs.Speed, direction);
+            }
         }
-        
-       
- 
     }
 }

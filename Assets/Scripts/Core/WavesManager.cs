@@ -24,12 +24,14 @@ namespace Core
 
         public void OnLevelStart()
         {
-            SpawnEnemy();
+            SpawnEnemy(new Vector3(2f, 1f, 0f));
+            SpawnEnemy(new Vector3(6f, 1f, 1f));
+            SpawnEnemy(new Vector3(-4f, 1f, 3f));
         }
         
-        private void SpawnEnemy()
+        private void SpawnEnemy(Vector3 pos)
         {
-            var enemy = _spawner.SpawnEnemy(EnemyType.Red, new Vector3(2f, 1f, 0f));
+            var enemy = _spawner.SpawnEnemy(EnemyType.Red, pos);
             enemy.Initialize();
             _enemies.Add(enemy);
         }

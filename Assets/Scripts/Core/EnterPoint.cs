@@ -1,4 +1,3 @@
-using System;
 using Core;
 using Spawn;
 using UI;
@@ -15,6 +14,8 @@ public class EnterPoint : MonoBehaviour
     [SerializeField] private MainMenuUIController _uiController;
     [SerializeField] private WavesManager _wavesManager;
 
+    
+
   private void OnValidate()
   {
       _gameManager   = GetComponent<GameManager>();
@@ -22,7 +23,7 @@ public class EnterPoint : MonoBehaviour
       _playerSpawner = GetComponent<PlayerSpawner>();
   }
 
-  private void Awake()
+    private void Awake()
     {
         BuildGraph();
     }
@@ -33,9 +34,5 @@ public class EnterPoint : MonoBehaviour
         _enemySpawner.Initialize(_enemyFactory);
         _wavesManager.Initialize(_enemySpawner);
         _gameManager.Initialize(_inputProvider, _playerSpawner, _wavesManager, _uiController);
-      
-        
-       
-        
     }
 }

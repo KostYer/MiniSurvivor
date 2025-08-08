@@ -7,7 +7,7 @@ namespace PlayerRelated
     public class Movement: MonoBehaviour
     {
         [SerializeField] private CharacterController _characterController;
-        [SerializeField] private MovementSettings _movementSettings;
+        private MovementSettings _movementSettings;
         private IInputProvider _inputProvider;
         
         private float _speed;
@@ -21,8 +21,9 @@ namespace PlayerRelated
             _characterController = GetComponent<CharacterController>();
         }
 
-        public void Initialize(IInputProvider inputProvider)
+        public void Initialize(IInputProvider inputProvider, MovementSettings settings)
         {
+            _movementSettings = settings;
             _inputProvider = inputProvider;
             _mainCamera = Camera.main;
         }
@@ -94,7 +95,6 @@ namespace PlayerRelated
             GUILayout.BeginArea(new Rect(10, 10, 200, 100), GUI.skin.box);
             GUILayout.Label($"targetSpeed: {_debugTargetSpeed}");
             GUILayout.Label($"_speed: {_speed:F2}");
-            GUILayout.Label($"InputDirection: {_inputProvider.InputDirection}");
             GUILayout.EndArea();
         }
     }

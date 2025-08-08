@@ -20,12 +20,12 @@ namespace Enemies
         private void OnValidate()
         {
             _enemyBrain = GetComponent<EnemyBrain>();
-            _movement = GetComponent<Movement>();
+         //   _movement = GetComponent<Movement>();
         }
 
         public void Initialize()
         {
-            _movement.Initialize(_enemyBrain);
+           // _movement.Initialize(_enemyBrain);
         }
     }
 }

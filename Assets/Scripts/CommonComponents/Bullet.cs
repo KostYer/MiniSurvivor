@@ -26,7 +26,12 @@ namespace PlayerRelated
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log($"[Bullet] OnTriggerEnter");
+            if (other.TryGetComponent<Health>(out Health health))
+            {
+                health.TakeDamage(_damage);
+                Destroy(gameObject);
+            }
+            
         }
     }
 }
