@@ -3,6 +3,7 @@ using Factories;
 using PlayerUI;
 using Settings;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace PlayerRelated
 {
@@ -13,7 +14,7 @@ namespace PlayerRelated
         [SerializeField] private Movement _movement;
         [SerializeField] private Shooter _shooter;
         [SerializeField] private Health _health;
-        [SerializeField] private PlayerTargetProvider _playerTargetProvider;
+        [SerializeField] private ClosestEnemyProvider closestEnemyProvider;
         [SerializeField] private RangeDrawerUI _rangeDrawerUI;
         [SerializeField] private HealthbarUI _healthbar;
        
@@ -31,15 +32,15 @@ namespace PlayerRelated
             _movement = GetComponent<Movement>();
             _shooter = GetComponent<Shooter>();
             _health = GetComponent<Health>();
-            _playerTargetProvider = GetComponent<PlayerTargetProvider>();
+            closestEnemyProvider = GetComponent<ClosestEnemyProvider>();
         }
 
         public void Initialize(IInputProvider inputProvider, IWavesProvider wavesProvider)
         { 
-            _playerTargetProvider.Initialize(wavesProvider);
+            closestEnemyProvider.Initialize(wavesProvider);
             _movement.Initialize(inputProvider, _movementSettings);
             _health.Initialize(_healthSettings);
-            _shooter.Initialize(_playerTargetProvider, _shootSettings, _bulletConfigs);
+            _shooter.Initialize(closestEnemyProvider, _shootSettings, _bulletConfigs);
            _rangeDrawerUI.Initialize(_rangeUISettings, _shootSettings);
            
            _healthbar.Initialize(_health);

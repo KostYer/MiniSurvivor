@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace PlayerRelated
 {
-    public interface ITargetProvider
+    public interface ITargetProximityProvider
     {
-        public bool TryFindTarget(out Vector3 targetPos, float range);
+        public bool IsTargetClose(out Vector3 targetPos, float range);
     }
 
-    public class PlayerTargetProvider: MonoBehaviour, ITargetProvider
+    public class ClosestEnemyProvider: MonoBehaviour, ITargetProximityProvider
     {
 
         public IWavesProvider _wavesProvider;
@@ -18,7 +18,7 @@ namespace PlayerRelated
             _wavesProvider = wavesProvider;
         }
 
-        public bool TryFindTarget(out Vector3 target, float range)
+        public bool IsTargetClose(out Vector3 target, float range)
         {
             target = default;
             if (_wavesProvider.Enemies == null) return false;
