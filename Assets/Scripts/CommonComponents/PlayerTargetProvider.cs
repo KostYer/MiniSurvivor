@@ -21,7 +21,23 @@ namespace PlayerRelated
         public bool TryFindTarget(out Vector3 target, float range)
         {
             target = default;
-            return false;
+            if (_wavesProvider.Enemies == null) return false;
+            if (_wavesProvider.Enemies.Count == 0) return false;
+
+            var minDistance = float.MaxValue;
+
+            for (int i = 0; i < _wavesProvider.Enemies.Count; i++)
+            {
+                var enemy = _wavesProvider.Enemies[i];
+                var distance = Vector3.Distance(transform.position, enemy.transform.position);
+                if (distance <= range && distance < minDistance)
+                {
+                    minDistance = distance;
+                    target = enemy.transform.position;
+                }
+            }
+           
+            return true;
         }
 
       
