@@ -155,10 +155,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movement: {fileID: 2016629922138291651}
   _shooter: {fileID: -95745644775049481}
+  _health: {fileID: 8392259105794323632}
   _playerTargetProvider: {fileID: -8059017123153105312}
   _movementSettings: {fileID: 11400000, guid: ecaa051fb8001724fb601ad530197c64, type: 2}
   _shootSettings: {fileID: 11400000, guid: 6abd939c2433364418ad10bdfb2dc2eb, type: 2}
   _bulletConfigs: {fileID: 11400000, guid: 7fd3ff16304e2cd4db881cf54c3642e8, type: 2}
+  _healthSettings: {fileID: 11400000, guid: 47234f2cf1ab95f468e7b00bac522c23, type: 2}
 --- !u!114 &2016629922138291651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,7 +174,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterController: {fileID: 7639520036952431164}
-  _movementSettings: {fileID: 11400000, guid: ecaa051fb8001724fb601ad530197c64, type: 2}
 --- !u!114 &8392259105794323632
 MonoBehaviour:
   m_ObjectHideFlags: 0

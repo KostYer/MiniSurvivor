@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 4795827732393653619}
   - component: {fileID: 8800022009535089794}
   - component: {fileID: 1609811117065649402}
-  - component: {fileID: 656765568422215731}
   - component: {fileID: 3021352465590661668}
   - component: {fileID: 2832901947055993742}
   - component: {fileID: 8345623150679187177}
@@ -153,23 +152,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
-  _movement: {fileID: 656765568422215731}
+  _movement: {fileID: 0}
   _enemyBrain: {fileID: 8345623150679187177}
   _bulletConfigs: {fileID: 0}
---- !u!114 &656765568422215731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 57752387419012279}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72c776151e9c48a8afb365592004a32f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _characterController: {fileID: 8800022009535089794}
-  _movementSettings: {fileID: 11400000, guid: ecaa051fb8001724fb601ad530197c64, type: 2}
 --- !u!114 &3021352465590661668
 MonoBehaviour:
   m_ObjectHideFlags: 0
