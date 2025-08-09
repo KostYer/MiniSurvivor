@@ -9,7 +9,7 @@ namespace PlayerRelated
     {
         [SerializeField] private Transform _shootPoint;
      
-        private ITargetProximityProvider targetProximityProvider;
+        private ITargetProximityProvider _targetProximityProvider;
         private ShootSettings _shootSettings;
         private BulletFactory _bulletFactory = new BulletFactory();
         private BulletConfigs _bulletConfigs;
@@ -20,7 +20,7 @@ namespace PlayerRelated
 
         public void Initialize(ITargetProximityProvider targetProximityProvider, ShootSettings shootSettings, BulletConfigs bulletConfigs)
         {
-            this.targetProximityProvider = targetProximityProvider;
+            _targetProximityProvider = targetProximityProvider;
             _shootSettings = shootSettings;
             _bulletConfigs = bulletConfigs;
             _actualRate = _searchInterval;
@@ -39,7 +39,7 @@ namespace PlayerRelated
 
         private void TryShoot()
         {
-            if (targetProximityProvider.IsTargetClose(out var targetPos, _shootSettings.ShootRange))
+            if (_targetProximityProvider.IsTargetClose(out var targetPos, _shootSettings.ShootRange))
             {
                 var bullet = _bulletFactory.CreateBullet(_bulletConfigs, _shootPoint.position);
                 var direction = (targetPos - _shootPoint.position).normalized;
@@ -48,7 +48,7 @@ namespace PlayerRelated
                 return;
             }
 
-            _actualRate = _searchInterval; // ensures instant shoot after near target loas and find
+            _actualRate = _searchInterval; // ensures instant shoot after near target lost and found
         }
     }
 }
