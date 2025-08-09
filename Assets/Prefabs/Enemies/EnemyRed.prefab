@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &433025841079021872
+--- !u!1001 &6727344096645156910
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 57752387419012279, guid: 0edbe87e51aea4f42a8b51c49ae6d10a,
         type: 3}
       propertyPath: m_Name
-      value: EnemyGreen
+      value: EnemyRed
       objectReference: {fileID: 0}
     - target: {fileID: 684286529354273976, guid: 0edbe87e51aea4f42a8b51c49ae6d10a,
         type: 3}
@@ -67,12 +67,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 93bf119ab5a367a4bb2df5e911c993ff, type: 2}
+      objectReference: {fileID: 2100000, guid: 3764fcdda3795cc4faf32b112eb28f8e, type: 2}
+    - target: {fileID: 7484735985717029464, guid: 0edbe87e51aea4f42a8b51c49ae6d10a,
+        type: 3}
+      propertyPath: _bulletType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8193482373682883956, guid: 0edbe87e51aea4f42a8b51c49ae6d10a,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 93bf119ab5a367a4bb2df5e911c993ff, type: 2}
+      objectReference: {fileID: 2100000, guid: 3764fcdda3795cc4faf32b112eb28f8e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

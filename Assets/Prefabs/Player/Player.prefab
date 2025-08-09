@@ -179,7 +179,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _characterController: {fileID: 7639520036952431164}
-  speedDebug: 6
 --- !u!114 &8392259105794323632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,6 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shootPoint: {fileID: 1388907490304785074}
+  _bulletType: 1
 --- !u!114 &6478926786710428440
 MonoBehaviour:
   m_ObjectHideFlags: 0
