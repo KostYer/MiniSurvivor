@@ -2,6 +2,7 @@
 using Core;
 using Factories;
 using PlayerRelated;
+using Pools;
 using Settings;
 using UnityEngine;
 
@@ -33,12 +34,12 @@ namespace Enemies
             _health = GetComponent<Health>();
         }
 
-        public void Initialize(Transform player)
+        public void Initialize(Transform player, IBulletPool bulletPool)
         {
             _enemyMovementInput.Initialize(_shootSettings, player);
             _movement.Initialize(_enemyMovementInput, _movementSettings);
             _proximityToPlayerProvider.Initialize(player);
-            _shooter.Initialize(_proximityToPlayerProvider, _shootSettings,_bulletConfigs);
+            _shooter.Initialize(_proximityToPlayerProvider, _shootSettings,_bulletConfigs,bulletPool);
             _health.Initialize(_healthSettings);
       
             _health.OnHealthDepleted += OnHealthDepleted;

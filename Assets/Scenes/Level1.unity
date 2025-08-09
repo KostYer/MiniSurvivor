@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 91153959}
   - component: {fileID: 91153963}
   - component: {fileID: 91153964}
+  - component: {fileID: 91153965}
   m_Layer: 0
   m_Name: EnterPoint
   m_TagString: Untagged
@@ -165,6 +166,7 @@ MonoBehaviour:
   _enemySpawner: {fileID: 91153963}
   _uiController: {fileID: 1947684535}
   _wavesManager: {fileID: 91153964}
+  _bulletPool: {fileID: 91153965}
 --- !u!4 &91153958
 Transform:
   m_ObjectHideFlags: 0
@@ -243,6 +245,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5dbc0fa4ca54e22b3ad0bda71d082c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &91153965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 91153956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8471342e61524b008d535bcfb2f68d9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletPools:
+  - Type: 1
+    Prefab: {fileID: 3824540091043599170, guid: ffa33dbb0ec34ea4897ebcdce83a0068,
+      type: 3}
+    InitialSize: 20
+  - Type: 3
+    Prefab: {fileID: 6520195262109399344, guid: cf4fd7328440bd64187d4d5c5ea209ad,
+      type: 3}
+    InitialSize: 20
+  - Type: 4
+    Prefab: {fileID: 1245676506253652211, guid: 4d57ae78b777cd1418c1409c85efbfce,
+      type: 3}
+    InitialSize: 20
+  - Type: 2
+    Prefab: {fileID: 5252636931886336974, guid: 4586a1b6ede2fd042bd91abf291ef3bb,
+      type: 3}
+    InitialSize: 20
+  _bulletsRoot: {fileID: 2061530160}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1625,6 +1657,37 @@ Transform:
   - {fileID: 793740159}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2061530159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2061530160}
+  m_Layer: 0
+  m_Name: BulletsRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2061530160
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2061530159}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2085458848
 GameObject:
   m_ObjectHideFlags: 3
@@ -1737,6 +1800,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 91153958}
+  - {fileID: 2061530160}
   - {fileID: 1947684536}
   - {fileID: 330585546}
   - {fileID: 1428982160}

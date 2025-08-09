@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Enemies;
+using Pools;
 using Spawn;
 using UnityEngine;
 
@@ -14,13 +15,15 @@ namespace Core
         private List<Enemy> _enemies = new();
         private IEnemySpawner _spawner;
         private Transform _player;
+        private IBulletPool _bulletPool;
 
         public List<Enemy> Enemies => _enemies;
         
         
-        public void Initialize(IEnemySpawner spawner)
+        public void Initialize(IEnemySpawner spawner, IBulletPool bulletPool)
         {
             _spawner = spawner;
+            _bulletPool = bulletPool;
         }
 
         public void OnLevelStart(Transform player)
@@ -36,7 +39,7 @@ namespace Core
             var enemy = _spawner.SpawnEnemy(EnemyType.Red, pos);
 
             enemy.OnEnemyDied += OnEnemyDie;
-            enemy.Initialize(_player);
+            enemy.Initialize(_player, _bulletPool);
             _enemies.Add(enemy);
         }
 

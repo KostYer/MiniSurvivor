@@ -1,6 +1,7 @@
 ﻿using Core;
 using Factories;
 using PlayerUI;
+using Pools;
 using Settings;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -35,12 +36,12 @@ namespace PlayerRelated
             closestEnemyProvider = GetComponent<ClosestEnemyProvider>();
         }
 
-        public void Initialize(IInputProvider inputProvider, IWavesProvider wavesProvider)
+        public void Initialize(IInputProvider inputProvider, IWavesProvider wavesProvider, IBulletPool bulletPool)
         { 
             closestEnemyProvider.Initialize(wavesProvider);
             _movement.Initialize(inputProvider, _movementSettings);
             _health.Initialize(_healthSettings);
-            _shooter.Initialize(closestEnemyProvider, _shootSettings, _bulletConfigs);
+            _shooter.Initialize(closestEnemyProvider, _shootSettings, _bulletConfigs, bulletPool);
            _rangeDrawerUI.Initialize(_rangeUISettings, _shootSettings);
            
            _healthbar.Initialize(_health);
