@@ -3,6 +3,7 @@ using System.Collections;
 using Core;
 using Settings;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Enemies
 {
@@ -15,6 +16,7 @@ namespace Enemies
         private ShootSettings _shootSettings;
 
         private float _updDirRate = .02f;
+        private float _approachAngleOffset;
         private bool _isActive;
 
         public void Initialize(ShootSettings shootSettings, Transform player)
@@ -22,6 +24,8 @@ namespace Enemies
             _shootSettings = shootSettings;
             _player = player;
             _isActive = true;
+            
+            _approachAngleOffset = Random.Range(-35f, 35f);
 
             StartCoroutine(UpdateDirectionCor(_updDirRate));
         }
@@ -39,6 +43,8 @@ namespace Enemies
         {
             var direction = _player.position - transform.position;
             direction = new Vector2(direction.x, direction.z);
+            
+            direction = Quaternion.Euler(0, 0, _approachAngleOffset) * direction;
 
             float distance = direction.magnitude;
 
