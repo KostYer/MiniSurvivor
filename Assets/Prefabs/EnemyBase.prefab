@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3021352465590661668}
   - component: {fileID: 2832901947055993742}
   - component: {fileID: 8345623150679187177}
+  - component: {fileID: 4056598045730889344}
   m_Layer: 7
   m_Name: EnemyBase
   m_TagString: Untagged
@@ -152,9 +153,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
-  _movement: {fileID: 0}
+  _movement: {fileID: 4056598045730889344}
   _enemyBrain: {fileID: 8345623150679187177}
-  _bulletConfigs: {fileID: 0}
+  _bulletConfigs: {fileID: 11400000, guid: 6b8a1d655c61534439c9126fdf31cafc, type: 2}
+  _shootSettings: {fileID: 11400000, guid: bb0e93831abdb2e41977ca52754f3427, type: 2}
+  _healthSettings: {fileID: 11400000, guid: 86d84083d067bbd49b8f4611bb3a4cf7, type: 2}
+  _movementSettings: {fileID: 11400000, guid: f0bd8efa0d6d9e14a87eadc6d7c5dcfd, type: 2}
 --- !u!114 &3021352465590661668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,6 +195,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37370f44ddf94b1f9d10c6a9adbb0821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _distanceDEBUG: 0
+--- !u!114 &4056598045730889344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57752387419012279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c776151e9c48a8afb365592004a32f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterController: {fileID: 8800022009535089794}
+  speedDebug: 2
 --- !u!1 &7277661143695570409
 GameObject:
   m_ObjectHideFlags: 0
