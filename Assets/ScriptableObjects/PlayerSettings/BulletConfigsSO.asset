@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: BulletConfigsSO
   m_EditorClassIdentifier: 
   Prefab: {fileID: 6791850734509090566, guid: df2c8844168ab7046a3d3c0168f9cc39, type: 3}
-  Speed: 5
-  Damage: 1
+  Speed: 11
+  Damage: 4
+  Lifetime: 3
   CollisionMask:
     serializedVersion: 2
     m_Bits: 256

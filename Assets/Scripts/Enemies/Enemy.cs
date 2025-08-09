@@ -1,18 +1,21 @@
-﻿using Core;
+﻿using System;
+using Core;
 using Factories;
 using PlayerRelated;
 using Settings;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Enemies
 {
     public class Enemy: MonoBehaviour
     {
+        public event Action<Enemy> OnEnemyDied = default;
+        
         [SerializeField] private EnemyType  _type;
         [SerializeField] private Movement _movement;
         [SerializeField] private Shooter _shooter;
-        [SerializeField] private EnemyMovementInput enemyMovementInput;
+        [SerializeField] private Health _health;
+        [SerializeField] private EnemyMovementInput _enemyMovementInput;
         [SerializeField] private ProximityToPlayerProvider _proximityToPlayerProvider;
         [SerializeField] private BulletConfigs _bulletConfigs;
         [SerializeField] private ShootSettings _shootSettings;
@@ -24,18 +27,26 @@ namespace Enemies
 
         private void OnValidate()
         {
-            enemyMovementInput = GetComponent<EnemyMovementInput>();
+            _enemyMovementInput = GetComponent<EnemyMovementInput>();
             _movement = GetComponent<Movement>();
             _shooter = GetComponent<Shooter>();
+            _health = GetComponent<Health>();
         }
 
         public void Initialize(Transform player)
         {
-            enemyMovementInput.Initialize(_shootSettings, player);
-            _movement.Initialize(enemyMovementInput, _movementSettings);
+            _enemyMovementInput.Initialize(_shootSettings, player);
+            _movement.Initialize(_enemyMovementInput, _movementSettings);
             _proximityToPlayerProvider.Initialize(player);
             _shooter.Initialize(_proximityToPlayerProvider, _shootSettings,_bulletConfigs);
-            
+            _health.Initialize(_healthSettings);
+      
+            _health.OnHealthDepleted += OnHealthDepleted;
+        }
+
+        private void OnHealthDepleted()
+        {
+            OnEnemyDied?.Invoke(this);
         }
     }
 }

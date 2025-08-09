@@ -34,8 +34,17 @@ namespace Core
         private void SpawnEnemy(Vector3 pos)
         {
             var enemy = _spawner.SpawnEnemy(EnemyType.Red, pos);
+
+            enemy.OnEnemyDied += OnEnemyDie;
             enemy.Initialize(_player);
             _enemies.Add(enemy);
+        }
+
+        private void OnEnemyDie(Enemy enemy)
+        {
+            _enemies.Remove(enemy);
+            enemy.OnEnemyDied -= OnEnemyDie;
+            Destroy(enemy.gameObject);
         }
     }
 }
