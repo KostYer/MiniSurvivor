@@ -17,6 +17,7 @@ namespace PlayerRelated
         private IBulletPool _pool;
         private float _damage;
         private float _speed;
+        private float _lifetime;
         private bool _isAlive;
 
         private void OnValidate()
@@ -37,6 +38,7 @@ namespace PlayerRelated
         {
             _speed = config.Speed;
             _damage = config.Damage;
+            _lifetime = config.Lifetime;
             SetLayer(this.gameObject, config.CollisionMask);
         }
 
@@ -61,6 +63,8 @@ namespace PlayerRelated
             _isAlive = true;
             transform.forward = direction;
             _rb.AddForce(direction * _speed, ForceMode.Impulse);
+
+            StartCoroutine(DieAfterDelay(_lifetime));
         }
         
         private void SetLayer(GameObject obj, LayerMask mask)
