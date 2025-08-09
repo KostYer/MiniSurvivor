@@ -5,7 +5,7 @@ namespace Factories
     [CreateAssetMenu(fileName = "BulletConfigsSO", menuName = "Factories/BulletConfigs")]
     public class BulletConfigs: ScriptableObject
     {
-        public GameObject Prefab;
+    //    public GameObject Prefab;
         public float Speed;
         public int Damage;
         public float Lifetime;

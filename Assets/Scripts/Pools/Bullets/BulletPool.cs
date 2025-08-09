@@ -19,7 +19,6 @@ namespace Pools
         [SerializeField] private List<BulletPoolEntry> _bulletPools = new();
         [SerializeField] private Transform _bulletsRoot;
         
-        private BulletFactory _bulletFactory = new BulletFactory();
         private readonly Dictionary<BulletType, Queue<Bullet>> _pools = new();
         private readonly Dictionary<BulletType, BulletPoolEntry> _entries = new();
 

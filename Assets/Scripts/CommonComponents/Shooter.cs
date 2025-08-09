@@ -14,7 +14,6 @@ namespace PlayerRelated
         private ITargetProximityProvider _targetProximityProvider;
         private IBulletPool _bulletPool;
         private ShootSettings _shootSettings;
-        private BulletFactory _bulletFactory = new BulletFactory();
         private BulletConfigs _bulletConfigs;
 
         private float _shootRate => _shootSettings.ShootRate;
