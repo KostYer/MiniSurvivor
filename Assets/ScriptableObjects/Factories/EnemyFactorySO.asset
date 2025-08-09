@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: EnemyFactorySO
   m_EditorClassIdentifier: 
   _enemies:
-  - {fileID: 1609811117065649402, guid: 0edbe87e51aea4f42a8b51c49ae6d10a, type: 3}
+  - {fileID: 5407522973906578644, guid: a7e9e89d189af214d8de8aa65b978025, type: 3}
+  - {fileID: 5615558092958444011, guid: e1c729c0b10bee349a7fccbd5f941a7c, type: 3}
+  - {fileID: 1176943753839529418, guid: 3d8550dd79e71eb4fbf6e4f5d1459b19, type: 3}
