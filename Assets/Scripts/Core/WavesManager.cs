@@ -13,6 +13,7 @@ namespace Core
     {
         private List<Enemy> _enemies = new();
         private IEnemySpawner _spawner;
+        private Transform _player;
 
         public List<Enemy> Enemies => _enemies;
         
@@ -22,8 +23,9 @@ namespace Core
             _spawner = spawner;
         }
 
-        public void OnLevelStart()
+        public void OnLevelStart(Transform player)
         {
+            _player = player;
             SpawnEnemy(new Vector3(2f, 1f, 0f));
             SpawnEnemy(new Vector3(6f, 1f, 1f));
             SpawnEnemy(new Vector3(-4f, 1f, 3f));
@@ -32,7 +34,7 @@ namespace Core
         private void SpawnEnemy(Vector3 pos)
         {
             var enemy = _spawner.SpawnEnemy(EnemyType.Red, pos);
-            enemy.Initialize();
+            enemy.Initialize(_player);
             _enemies.Add(enemy);
         }
     }

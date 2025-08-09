@@ -1,5 +1,6 @@
 ﻿using System;
 using Cinemachine;
+using PlayerRelated;
 using Spawn;
 using UI;
 using UnityEngine;
@@ -17,6 +18,7 @@ namespace Core
         private IEnemySpawner _enemySpawner;
         private MainMenuUIController _uiController;
         private WavesManager _wavesManager;
+        private Player _player; 
         
         public CinemachineVirtualCamera virtualCamera;
         
@@ -36,7 +38,7 @@ namespace Core
         private void StartLevel()
         {
             SpawnPlayer();
-            _wavesManager.OnLevelStart();
+            _wavesManager.OnLevelStart(_player.transform);
         }
 
         private void LevelCleared()
@@ -49,11 +51,11 @@ namespace Core
 
         private void SpawnPlayer()
         {
-            var player = _playerSpawner.SpawnPlayer();
-            player.Initialize(_inputProvider, _wavesManager);
+            _player = _playerSpawner.SpawnPlayer();
+            _player.Initialize(_inputProvider, _wavesManager);
            
-            virtualCamera.Follow = player.transform;
-            virtualCamera.LookAt =  player.transform;
+            virtualCamera.Follow = _player.transform;
+            virtualCamera.LookAt =  _player.transform;
         }
 
      

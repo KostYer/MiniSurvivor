@@ -14,7 +14,7 @@ namespace PlayerRelated
         private float _targetRotation;
         private float _rotationVelocity;
         private Camera _mainCamera;
-        private float _debugTargetSpeed;
+      
         
         private void OnValidate()
         {
@@ -62,6 +62,7 @@ namespace PlayerRelated
                 _speed = targetSpeed;
             }
 
+            _speed = targetSpeed;
             /*_animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;*/
 
@@ -80,22 +81,18 @@ namespace PlayerRelated
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
 
-          //  Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
            
             // move the player
             _characterController.Move(targetDirection.normalized * (_speed * Time.deltaTime));
-
-           //   _characterController.Move(transform.forward * 10f);
-           _debugTargetSpeed = targetSpeed;
         }
         
         void OnGUI()
         {
-            GUILayout.BeginArea(new Rect(10, 10, 200, 100), GUI.skin.box);
+            /*GUILayout.BeginArea(new Rect(10, 10, 200, 100), GUI.skin.box);
             GUILayout.Label($"targetSpeed: {_debugTargetSpeed}");
             GUILayout.Label($"_speed: {_speed:F2}");
-            GUILayout.EndArea();
+            GUILayout.EndArea();*/
         }
     }
 }
