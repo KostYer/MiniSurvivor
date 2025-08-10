@@ -17,7 +17,7 @@ namespace Core
     }
     public class WavesManager: MonoBehaviour, IWavesProvider
     {
-        public event Action<Dictionary<EnemyType, WaveStatsUnit>> OnWaveCleared = default;
+        public event Action<WaveEndMessage> OnWaveCleared = default;
         
         private List<Enemy> _enemies = new();
         private IEnemySpawner _spawner;
@@ -32,9 +32,11 @@ namespace Core
         private int _currentWave = 0;
 
         private float _spawnRate = .8f;
+        private Coroutine _spawnCoroutine;
         
 
         public List<Enemy> Enemies => _enemies;
+        public WaveStatistics WaveStatistics => _waveStatistics;
         
         
         public void Initialize(WaveConfigs waveConfigs, IEnemySpawner spawner, ISpawnPointProvider pointsProvider, IBulletPool bulletPool)
@@ -51,7 +53,6 @@ namespace Core
             _player = player;
         }
 
-      
         public void StartWave()
         {
             _currentWave++;
@@ -59,17 +60,13 @@ namespace Core
 
             _waveStatistics.Initialize(currentWaveConfig.WaveUnits, _currentWave);
             _spawnTypeProvider = new SpawnTypeProvider(currentWaveConfig.WaveUnits, _currentWave);
-            _waveStatistics.OnWaveKilled += OnWaveDestroyed;     
+            _waveStatistics.OnWaveCleared += OnWaveClear;     
             
             InitialBurstSpawn(currentWaveConfig);
             
-            StartCoroutine(SpawnWave());
+            _spawnCoroutine = StartCoroutine(SpawnWave());
         }
-
-
-        private void OnSpawnOver()
-        {
-        }
+ 
 
         public void InitialBurstSpawn(WaveData waveConfigs)
         {
@@ -105,7 +102,7 @@ namespace Core
 
         private void SpawnEnemy(EnemyType type, Vector2 spawnRadius)
         {
-            var pos = _pointProvider.GetSpawnPoint(_player.position, spawnRadius);
+            var pos = _pointProvider.GetSpawnPoint(_player.transform.position, spawnRadius);
             SpawnEnemy(type, pos);
         }
 
@@ -113,7 +110,7 @@ namespace Core
         {
             var enemy = _spawner.SpawnEnemy(type, pos);
             enemy.OnEnemyDied += OnEnemyDie;
-            enemy.Initialize(_player, _bulletPool);
+            enemy.Initialize(_player.transform, _bulletPool);
             _enemies.Add(enemy);
             _spawnTypeProvider.OnEnemySpawned(type);
         }
@@ -126,13 +123,26 @@ namespace Core
             Destroy(enemy.gameObject);
         }
         
-        
-        private void OnWaveDestroyed(Dictionary<EnemyType, WaveStatsUnit> stats)
+        private void OnWaveClear()
         {
-             Debug.Log($"[OnWaveDestroyed]");
-             _waveStatistics.OnWaveKilled -= OnWaveDestroyed;
+             _waveStatistics.OnWaveCleared -= OnWaveClear;
              _spawnTypeProvider = null;
-             OnWaveCleared?.Invoke(stats);
+             SendEndMessage(true);
+        }
+        
+        private void SendEndMessage(bool isWin)
+        {
+            var message = new WaveEndMessage();
+            message.IsVictory = isWin;
+            message.Stats = _waveStatistics.WaveStats;
+            OnWaveCleared?.Invoke(message);
+        }
+
+        public void Deactivate()
+        {
+            StopCoroutine(_spawnCoroutine);
+            _waveStatistics.OnWaveCleared -= OnWaveClear;
+            _currentWave = 0;
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using Cinemachine;
-using Enemies;
 using PlayerRelated;
 using Pools;
 using Spawn;
@@ -43,17 +41,17 @@ namespace Core
             _timeCounter.OnSecondPass += _uiController.Timer.OnTimerTick;
         }
 
+        private void Start()
+        {
+            StartGame();
+        }
+        
         private void OnWaveEndConfirmed()
         {
             StartWave();
         }
 
-        private void Start()
-        {
-            StartLevel();
-        }
-
-        private void StartLevel()
+        private void StartGame()
         {
             SpawnPlayer();
             _wavesManager.SetPlayer(_player.transform);
@@ -67,18 +65,7 @@ namespace Core
             _wavesManager.StartWave();
             _timeCounter.StartTimer();
         }
-        
-        private void OnWaveCleared(Dictionary<EnemyType, WaveStatsUnit> stats)
-        {
-            _uiController.OnWaveDefeated(stats);
-            _player.Show(false);
-            _timeCounter.StopCounter();
-        }
- 
-        private void WaveFailed()
-        {
-        }
-
+     
         private void SpawnPlayer()
         {
             _player = _playerSpawner.SpawnPlayer();
@@ -86,9 +73,37 @@ namespace Core
            
             virtualCamera.Follow = _player.transform;
             virtualCamera.LookAt =  _player.transform;
+
+            _player.OnPlayerDie += OnPlayerDie;
         }
-        
-        
-     
+
+        private void OnPlayerDie()
+        {
+            var message = new WaveEndMessage();
+            message.Stats = _wavesManager.WaveStatistics.WaveStats;
+            SendStats(message);
+            InvokeGameOver();
+        }
+           
+        private void OnWaveCleared(WaveEndMessage message)
+        {
+            SendStats(message);
+            _player.Show(false);
+            _timeCounter.StopCounter();
+        }
+
+        private void SendStats(WaveEndMessage message)
+        {
+            message.Timer = _timeCounter.CurrentTimer;
+            _uiController.OnWaveDefeated(message);
+        }
+
+        private void InvokeGameOver()
+        {
+            _wavesManager.Deactivate();
+            _timeCounter.StopCounter();
+            
+            _player.Show(false);
+        }
     }
 }

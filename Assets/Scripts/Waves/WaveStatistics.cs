@@ -24,7 +24,7 @@ namespace Waves
 
     public class WaveStatistics
     {
-        public event Action<Dictionary<EnemyType, WaveStatsUnit>> OnWaveKilled = default;
+        public event Action OnWaveCleared = default;
 
         private Dictionary<EnemyType, WaveStatsUnit> _gameStats = new(); //accumulutive storer 
         
@@ -76,7 +76,7 @@ namespace Waves
                 }
             }
             
-            OnWaveKilled?.Invoke(_waveStats);
+            OnWaveCleared?.Invoke();
             Debug.Log($"[WaveStatistics] the wave is died");
         }
     }
