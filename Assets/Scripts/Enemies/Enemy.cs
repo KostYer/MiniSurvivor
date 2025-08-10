@@ -14,6 +14,7 @@ namespace Enemies
         
         [SerializeField] private EnemyType  _type;
         [SerializeField] private Movement _movement;
+        [SerializeField] private CharacterController _characterController;
         [SerializeField] private Shooter _shooter;
         [SerializeField] private Health _health;
         [SerializeField] private EnemyMovementInput _enemyMovementInput;
@@ -32,6 +33,9 @@ namespace Enemies
             _movement = GetComponent<Movement>();
             _shooter = GetComponent<Shooter>();
             _health = GetComponent<Health>();
+            _characterController = GetComponent<CharacterController>();
+            
+            _characterController.enabled = false;
         }
 
         public void Initialize(Transform player, IBulletPool bulletPool)

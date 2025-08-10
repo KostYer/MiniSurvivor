@@ -26,7 +26,7 @@ namespace Enemies
             _isActive = true;
             
             _approachAngleOffset = Random.Range(-35f, 35f);
-
+            _input = Vector2.zero;
             StartCoroutine(UpdateDirectionCor(_updDirRate));
         }
 
@@ -41,6 +41,7 @@ namespace Enemies
 
         private void UpdDirection()
         {
+           
             var direction = _player.position - transform.position;
             direction = new Vector2(direction.x, direction.z);
             

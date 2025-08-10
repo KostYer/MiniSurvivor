@@ -26,6 +26,7 @@ namespace PlayerRelated
             _movementSettings = settings;
             _inputProvider = inputProvider;
             _mainCamera = Camera.main;
+            _characterController .enabled = true;
         }
  
         private void Update()
@@ -84,7 +85,7 @@ namespace PlayerRelated
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
            
             // move the player
-            _characterController.Move(targetDirection.normalized * (_speed * Time.deltaTime));
+            _characterController.Move(targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0f, -9.8f, 0f));
         }
         
         void OnGUI()
