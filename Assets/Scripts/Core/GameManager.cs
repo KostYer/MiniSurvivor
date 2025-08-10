@@ -41,7 +41,14 @@ namespace Core
         private void StartLevel()
         {
             SpawnPlayer();
-            _wavesManager.OnLevelStart(_player.transform);
+            _wavesManager.SetPlayer(_player.transform);
+            _wavesManager.StartWave();
+           
+        }
+        
+        private void StartWave()
+        {
+          
         }
 
         private void LevelCleared()
@@ -60,7 +67,5 @@ namespace Core
             virtualCamera.Follow = _player.transform;
             virtualCamera.LookAt =  _player.transform;
         }
-
-     
     }
 }

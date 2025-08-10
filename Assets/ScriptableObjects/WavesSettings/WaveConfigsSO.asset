@@ -12,24 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf60eeba6b54817b6322df27f474d02, type: 3}
   m_Name: WaveConfigsSO
   m_EditorClassIdentifier: 
+  _spawnRangeMinMax: {x: 20, y: 25}
+  _spawnRangeMinMaxInitial: {x: 4, y: 10}
   _waveData:
   - WaveNumber: 1
+    InitialSpawn: 3
     _waveUnits:
     - EnemyType: 1
-      Count: 11
+      Count: 4
     - EnemyType: 2
-      Count: 11
+      Count: 4
     - EnemyType: 3
-      Count: 11
+      Count: 12
   - WaveNumber: 2
+    InitialSpawn: 10
     _waveUnits:
     - EnemyType: 1
-      Count: 0
+      Count: 30
     - EnemyType: 2
-      Count: 0
+      Count: 30
     - EnemyType: 3
-      Count: 0
+      Count: 30
   - WaveNumber: 3
+    InitialSpawn: 3
     _waveUnits:
     - EnemyType: 1
       Count: 0

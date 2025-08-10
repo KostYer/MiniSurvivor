@@ -10,8 +10,14 @@ namespace WaveSettings
     [CreateAssetMenu(fileName = "WaveConfigsSO", menuName = "Settings/WaveConfigs")]
     public class WaveConfigs: ScriptableObject
     {
-        public List<WaveData> _waveData = new();
-
+        [SerializeField] private Vector2 _spawnRangeMinMax = new(20f, 25f); // how far enemies are being spawned outside camera bounds
+        [SerializeField] private Vector2 _spawnRangeMinMaxInitial = new(4f, 10f); // initial burst radius
+        [SerializeField] private List<WaveData> _waveData = new();
+        
+        public Vector2 SpawnRangeMinMax => _spawnRangeMinMax;
+        public Vector2 SpawnRangeMinMaxInitial => _spawnRangeMinMaxInitial;
+        public List<WaveData> WaveData => _waveData;
+      
         private void OnValidate()
         {
             foreach (var wave in _waveData)
@@ -32,6 +38,8 @@ namespace WaveSettings
     {
         [ReadOnly]
         public int WaveNumber;
+        public int InitialSpawn = 3; // how many enemies is spawned upon start wave
+        public WaveDataUnit[] WaveUnits => _waveUnits;
         [SerializeField] private WaveDataUnit[] _waveUnits = new WaveDataUnit[3];
 
         public void Initialize()
