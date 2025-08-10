@@ -10,7 +10,7 @@ namespace UI
         
         private readonly float _tick = 1f;
 
-        public float CurrentTImer => _currentTimer;
+        public float CurrentTimer => _currentTimer;
         
         private float _currentTimer;
         private bool _isActive;
