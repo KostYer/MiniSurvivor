@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using Cinemachine;
+using Enemies;
 using PlayerRelated;
 using Pools;
 using Spawn;
 using UI;
 using UnityEngine;
+using Waves;
 
 namespace Core
 {
@@ -21,16 +24,28 @@ namespace Core
         private WavesManager _wavesManager;
         private Player _player;
         private IBulletPool _bulletsPool;
+        private TimeCounter _timeCounter;
         
         public CinemachineVirtualCamera virtualCamera;
         
-        public void Initialize(IInputProvider inputProvider, IPlayerSpawner playerSpawner, WavesManager wavesManager, MainMenuUIController uiController, IBulletPool bulletPool)
+        public void Initialize(IInputProvider inputProvider, IPlayerSpawner playerSpawner, WavesManager wavesManager, MainMenuUIController uiController, IBulletPool bulletPool, TimeCounter timeCounter)
         {
             _inputProvider = inputProvider;
             _playerSpawner = playerSpawner;
             _wavesManager = wavesManager;
             _uiController = uiController;
             _bulletsPool = bulletPool;
+            _timeCounter = timeCounter;
+
+            _wavesManager.OnWaveCleared += OnWaveCleared;
+            _uiController.OnWaveEndConfirmed += OnWaveEndConfirmed;
+
+            _timeCounter.OnSecondPass += _uiController.Timer.OnTimerTick;
+        }
+
+        private void OnWaveEndConfirmed()
+        {
+            StartWave();
         }
 
         private void Start()
@@ -42,20 +57,25 @@ namespace Core
         {
             SpawnPlayer();
             _wavesManager.SetPlayer(_player.transform);
-            _wavesManager.StartWave();
-           
+            StartWave();
         }
         
         private void StartWave()
         {
-          
+            _player.Show(true);
+            _player.Reset();
+            _wavesManager.StartWave();
+            _timeCounter.StartTimer();
         }
-
-        private void LevelCleared()
+        
+        private void OnWaveCleared(Dictionary<EnemyType, WaveStatsUnit> stats)
         {
+            _uiController.OnWaveDefeated(stats);
+            _player.Show(false);
+            _timeCounter.StopCounter();
         }
-
-        private void GameOver()
+ 
+        private void WaveFailed()
         {
         }
 
@@ -67,5 +87,8 @@ namespace Core
             virtualCamera.Follow = _player.transform;
             virtualCamera.LookAt =  _player.transform;
         }
+        
+        
+     
     }
 }
