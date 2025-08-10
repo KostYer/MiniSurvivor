@@ -51,7 +51,6 @@ namespace WaveSettings
     [Serializable]
     public class WaveData
     {
-        
         [ReadOnly] public int WaveNumber;
         public int InitialSpawn = 3; // how many enemies is spawned upon start wave
         [ReadOnly] public float TimeToSpawnDebug; //appr time to spawn the wave

@@ -26,6 +26,10 @@ namespace PlayerRelated
         [SerializeField] private BulletConfigs _bulletConfigs;
         [SerializeField] private HealthSettings _healthSettings;
         [SerializeField] private RangeUISettings _rangeUISettings;
+        [Space]
+        [Header("Renderers")]
+        [SerializeField] private MeshRenderer _rendererMain;
+        [SerializeField] private MeshRenderer _rendererHand;
           
 
         private void OnValidate()
@@ -33,6 +37,7 @@ namespace PlayerRelated
             _movement = GetComponent<Movement>();
             _shooter = GetComponent<Shooter>();
             _health = GetComponent<Health>();
+            
             closestEnemyProvider = GetComponent<ClosestEnemyProvider>();
         }
 
@@ -47,6 +52,20 @@ namespace PlayerRelated
            _healthbar.Initialize(_health);
          
             _wavesProvider = wavesProvider;
+        }
+
+        public void Show(bool on)
+        {
+            _rendererMain.enabled = on;
+            _rendererHand.enabled = on;
+            _rangeDrawerUI.gameObject.SetActive(on);
+            _healthbar.gameObject.SetActive(on);
+            
+        }
+
+        public void Reset()
+        {
+            _health.Initialize(_healthSettings);
         }
     }
 }
