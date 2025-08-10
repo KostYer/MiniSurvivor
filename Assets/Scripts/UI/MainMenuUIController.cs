@@ -47,9 +47,9 @@ namespace UI
             ShowCanvasGroup(_timerCanvas, true);
         }
 
-        public void OnWaveDefeated(Dictionary<EnemyType, WaveStatsUnit> stats)
+        public void OnWaveDefeated(WaveEndMessage message)
         {
-            _statsScreen.Initialize(stats);
+            _statsScreen.Initialize(message);
             ShowCanvasGroup(_wavesCanves, true);
             ShowCanvasGroup(_joystickCanvas, false);
             ShowCanvasGroup(_timerCanvas, false);

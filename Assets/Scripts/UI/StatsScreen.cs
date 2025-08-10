@@ -15,10 +15,13 @@ namespace UI
         [SerializeField] private List<TMP_Text> _enemyCounters = new();
 
 
-        public void Initialize(Dictionary<EnemyType, WaveStatsUnit> stats)
+        public void Initialize(WaveEndMessage message)
         {
+            _result.text = message.IsVictory ? "Victory" : "Defeat";
+            _buttonText.text = message.IsVictory ? "Continue" : "Start Over";
+            
             int i = 0;
-            foreach (var kvp in stats)
+            foreach (var kvp in message.Stats)
             {
                 _enemyHeaders[i].text = "Enemy " + kvp.Value.EnemyType;
                 _enemyCounters[i].text = kvp.Value.CountKilled.ToString();
