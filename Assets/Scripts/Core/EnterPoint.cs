@@ -17,6 +17,7 @@ public class EnterPoint : MonoBehaviour
     [SerializeField] private MainMenuUIController _uiController;
     [SerializeField] private WavesManager _wavesManager;
     [SerializeField] private BulletPool _bulletPool;
+    [SerializeField] private TimeCounter _timeCounter;
     private ISpawnPointProvider _enemySpawnPointProvider = new EnemySpawnPointsProvider();
 
       private void OnValidate()
@@ -25,6 +26,7 @@ public class EnterPoint : MonoBehaviour
           _inputProvider = GetComponent<InputProvider>();
           _playerSpawner = GetComponent<PlayerSpawner>();
           _bulletPool = GetComponent<BulletPool>();
+          _timeCounter = GetComponent<TimeCounter>();
       }
 
     private void Awake()
@@ -38,6 +40,6 @@ public class EnterPoint : MonoBehaviour
         _playerSpawner.Initialize(_playerFactory);
         _enemySpawner.Initialize(_enemyFactory);
         _wavesManager.Initialize(_waveConfigs, _enemySpawner, _enemySpawnPointProvider, _bulletPool);
-        _gameManager.Initialize(_inputProvider, _playerSpawner, _wavesManager, _uiController, _bulletPool);
+        _gameManager.Initialize(_inputProvider, _playerSpawner, _wavesManager, _uiController, _bulletPool, _timeCounter);
     }
 }
