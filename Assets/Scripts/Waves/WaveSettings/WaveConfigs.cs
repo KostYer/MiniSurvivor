@@ -13,10 +13,12 @@ namespace WaveSettings
         [SerializeField] private Vector2 _spawnRangeMinMax = new(20f, 25f); // how far enemies are being spawned outside camera bounds
         [SerializeField] private Vector2 _spawnRangeMinMaxInitial = new(4f, 10f); // initial burst radius
         [SerializeField] private List<WaveData> _waveData = new();
+        [SerializeField] private float _spawnRate = .7f;
         
         public Vector2 SpawnRangeMinMax => _spawnRangeMinMax;
         public Vector2 SpawnRangeMinMaxInitial => _spawnRangeMinMaxInitial;
         public List<WaveData> WaveData => _waveData;
+        public float SpawRate => _spawnRate;
       
         private void OnValidate()
         {
@@ -29,16 +31,30 @@ namespace WaveSettings
             {
                 _waveData[i].WaveNumber = i + 1;
                 _waveData[i]?.Initialize();
+                _waveData[i].TimeToSpawnDebug = CalcTimeToSpawn(_waveData[i]);
             }
+        }
+
+        private float CalcTimeToSpawn(WaveData wave)
+        {
+            int enemiesInWave = 0;
+
+            for (int i = 0; i < wave.WaveUnits.Length; i++)
+            {
+                enemiesInWave += wave.WaveUnits[i].Count;
+            }
+
+            return (enemiesInWave - wave.InitialSpawn) * _spawnRate;
         }
     }
 
     [Serializable]
     public class WaveData
     {
-        [ReadOnly]
-        public int WaveNumber;
+        
+        [ReadOnly] public int WaveNumber;
         public int InitialSpawn = 3; // how many enemies is spawned upon start wave
+        [ReadOnly] public float TimeToSpawnDebug; //appr time to spawn the wave
         public WaveDataUnit[] WaveUnits => _waveUnits;
         [SerializeField] private WaveDataUnit[] _waveUnits = new WaveDataUnit[3];
 

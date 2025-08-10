@@ -28,7 +28,7 @@ namespace Core
         private WaveConfigs _waveConfigs;
         private int _currentWave = 0;
 
-        private float _spawnRate = 1.3f;
+        private float _spawnRate = .8f;
         
 
         public List<Enemy> Enemies => _enemies;
@@ -40,6 +40,8 @@ namespace Core
             _spawner = spawner;
             _pointProvider = pointsProvider;
             _bulletPool = bulletPool;
+
+            _spawnRate = waveConfigs.SpawRate;
         }
 
         public void SetPlayer(Transform player)
@@ -47,20 +49,30 @@ namespace Core
             _player = player;
         }
 
+        private float _timeStartDebug;
+      
         public void StartWave()
         {
+            _timeStartDebug = Time.time;
             _currentWave++;
             var currentWaveConfig = _waveConfigs.WaveData.FirstOrDefault(p => p.WaveNumber == _currentWave);
 
+        
+
             _waveStatistics = new WaveStatistics(currentWaveConfig.WaveUnits, _currentWave);
             _spawnTypeProvider = new SpawnTypeProvider(currentWaveConfig.WaveUnits, _currentWave);
-            
+            _spawnTypeProvider.OnWaveSpawnOver += OnSpawnOver;
             InitialBurstSpawn(currentWaveConfig);
             
             StartCoroutine(SpawnWave());
           
         }
-        
+
+        private void OnSpawnOver()
+        {
+            Debug.Log($"[OnSpawnOver] duration {Time.time - _timeStartDebug}");
+        }
+
         public void InitialBurstSpawn(WaveData waveConfigs)
         {
             if (waveConfigs == null)
