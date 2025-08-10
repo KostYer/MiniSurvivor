@@ -11,6 +11,7 @@ namespace PlayerRelated
         
         private float _maxHealth;
         private float _health;
+        private bool _IsAlive;
 
         private float HealthValue => _health;
 
@@ -19,14 +20,16 @@ namespace PlayerRelated
             _maxHealth = settings.MaxHealth;
             _health = settings.MaxHealth;
             OnHealthChanged?.Invoke(_health/_maxHealth);
+            _IsAlive = true;
         }
 
         public void TakeDamage(float damage)
         {
             _health -= damage;
             OnHealthChanged?.Invoke(_health/_maxHealth);
-            if (_health <= 0f)
+            if (_health <= 0f && _IsAlive)
             {
+                _IsAlive = false;
                 OnHealthDepleted?.Invoke();
             }
         }

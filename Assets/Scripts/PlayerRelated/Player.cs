@@ -1,15 +1,18 @@
-﻿using Core;
+﻿using System;
+using Core;
 using Factories;
 using PlayerUI;
 using Pools;
 using Settings;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace PlayerRelated
 {
     public class Player: MonoBehaviour
     {
+
+        public event Action OnPlayerDie = default;
+        
         private IWavesProvider _wavesProvider;
         
         [SerializeField] private Movement _movement;
@@ -52,6 +55,8 @@ namespace PlayerRelated
            _healthbar.Initialize(_health);
          
             _wavesProvider = wavesProvider;
+
+            _health.OnHealthDepleted += OnHealthDepleted;
         }
 
         public void Show(bool on)
@@ -60,12 +65,18 @@ namespace PlayerRelated
             _rendererHand.enabled = on;
             _rangeDrawerUI.gameObject.SetActive(on);
             _healthbar.gameObject.SetActive(on);
-            
+            _shooter.SetActive(on);
+
         }
 
         public void Reset()
         {
             _health.Initialize(_healthSettings);
+        }
+        
+        private void OnHealthDepleted()
+        {
+            OnPlayerDie?.Invoke();
         }
     }
 }
