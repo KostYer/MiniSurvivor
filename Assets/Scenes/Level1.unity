@@ -164,6 +164,7 @@ MonoBehaviour:
   _playerFactory: {fileID: 11400000, guid: 747f984e796b8594e97d4c5d523c7aa7, type: 2}
   _enemyFactory: {fileID: 11400000, guid: 72733bbabbfa21d4aad11275adfba96a, type: 2}
   _enemySpawner: {fileID: 91153963}
+  _waveConfigs: {fileID: 11400000, guid: e2c08d3401c16b04bb8518544be4bb56, type: 2}
   _uiController: {fileID: 1947684535}
   _wavesManager: {fileID: 91153964}
   _bulletPool: {fileID: 91153965}
