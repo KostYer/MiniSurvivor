@@ -19,6 +19,7 @@ namespace PlayerRelated
         private float _shootRate => _shootSettings.ShootRate;
         private float _searchInterval = .05f;
         private float _actualRate;
+        private bool _isActive = true;
 
         public void Initialize(ITargetProximityProvider targetProximityProvider, ShootSettings shootSettings, BulletConfigs bulletConfigs, IBulletPool bulletPool)
         {
@@ -33,7 +34,7 @@ namespace PlayerRelated
 
         private IEnumerator ShootPeriodically()
         {
-            while (true)
+            while (_isActive)
             {
                 TryShoot();
                 yield return new WaitForSeconds(_actualRate);
@@ -54,6 +55,11 @@ namespace PlayerRelated
             }
 
             _actualRate = _searchInterval; // ensures instant shoot after near target lost and found
+        }
+
+        public void SetActive(bool on)
+        {
+            _isActive = on;
         }
     }
 }
