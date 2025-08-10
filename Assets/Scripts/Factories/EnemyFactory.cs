@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Enemies;
 using UnityEngine;
 
@@ -19,7 +18,6 @@ namespace Core
         private void OnValidate()
         {
             if(_enemies.Count == 0) return;
-          //  _enemies.Clear();
             
             for (int i = 0; i < _enemies.Count; i++)
             {
