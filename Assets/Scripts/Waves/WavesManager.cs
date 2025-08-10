@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Enemies;
@@ -16,12 +17,14 @@ namespace Core
     }
     public class WavesManager: MonoBehaviour, IWavesProvider
     {
+        public event Action<Dictionary<EnemyType, WaveStatsUnit>> OnWaveCleared = default;
+        
         private List<Enemy> _enemies = new();
         private IEnemySpawner _spawner;
         private Transform _player;
         private IBulletPool _bulletPool;
         private ISpawnPointProvider _pointProvider;
-        private WaveStatistics _waveStatistics;
+        private WaveStatistics _waveStatistics = new();
         private SpawnTypeProvider _spawnTypeProvider;
         private InitialBurstProvider _initialBurstProvider = new InitialBurstProvider();
 
@@ -40,7 +43,6 @@ namespace Core
             _spawner = spawner;
             _pointProvider = pointsProvider;
             _bulletPool = bulletPool;
-
             _spawnRate = waveConfigs.SpawRate;
         }
 
@@ -49,28 +51,24 @@ namespace Core
             _player = player;
         }
 
-        private float _timeStartDebug;
       
         public void StartWave()
         {
-            _timeStartDebug = Time.time;
             _currentWave++;
             var currentWaveConfig = _waveConfigs.WaveData.FirstOrDefault(p => p.WaveNumber == _currentWave);
 
-        
-
-            _waveStatistics = new WaveStatistics(currentWaveConfig.WaveUnits, _currentWave);
+            _waveStatistics.Initialize(currentWaveConfig.WaveUnits, _currentWave);
             _spawnTypeProvider = new SpawnTypeProvider(currentWaveConfig.WaveUnits, _currentWave);
-            _spawnTypeProvider.OnWaveSpawnOver += OnSpawnOver;
+            _waveStatistics.OnWaveKilled += OnWaveDestroyed;     
+            
             InitialBurstSpawn(currentWaveConfig);
             
             StartCoroutine(SpawnWave());
-          
         }
+
 
         private void OnSpawnOver()
         {
-            Debug.Log($"[OnSpawnOver] duration {Time.time - _timeStartDebug}");
         }
 
         public void InitialBurstSpawn(WaveData waveConfigs)
@@ -126,6 +124,15 @@ namespace Core
             enemy.OnEnemyDied -= OnEnemyDie;
             _waveStatistics.OnEnemyDied(enemy.Type);
             Destroy(enemy.gameObject);
+        }
+        
+        
+        private void OnWaveDestroyed(Dictionary<EnemyType, WaveStatsUnit> stats)
+        {
+             Debug.Log($"[OnWaveDestroyed]");
+             _waveStatistics.OnWaveKilled -= OnWaveDestroyed;
+             _spawnTypeProvider = null;
+             OnWaveCleared?.Invoke(stats);
         }
     }
 }

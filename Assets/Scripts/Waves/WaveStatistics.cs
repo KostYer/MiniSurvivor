@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Enemies;
+using UnityEngine;
 using WaveSettings;
 
 namespace Waves
@@ -23,7 +24,9 @@ namespace Waves
 
     public class WaveStatistics
     {
-        public event Action OnWaveKilled = default;
+        public event Action<Dictionary<EnemyType, WaveStatsUnit>> OnWaveKilled = default;
+
+        private Dictionary<EnemyType, WaveStatsUnit> _gameStats = new(); //accumulutive storer 
         
         public Dictionary<EnemyType, WaveStatsUnit> WaveStats => _waveStats;
         private Dictionary<EnemyType, WaveStatsUnit> _waveStats = new();
@@ -31,9 +34,10 @@ namespace Waves
         public int WaveNumber => _waveNumber;
         private int _waveNumber;
         
-        public WaveStatistics(WaveDataUnit[] waveUnits, int waveNum)
+        public void Initialize(WaveDataUnit[] waveUnits, int waveNum)
         {
             _waveNumber = waveNum;
+            _waveStats.Clear();
 
             for (int i = 0; i < waveUnits.Length; i++)
             {
@@ -54,14 +58,26 @@ namespace Waves
                 var key = entry.Key;
                  if (!_waveStats[key].IsTypeKilled)  return;
             }
-            
-            OnWaveKilled?.Invoke();
-            /*Debug.Log($"[WaveStatistics] the wave is died");
-            
-            foreach (var e in _waveStats)
+
+            AfterWaveCleared();
+        }
+
+        private void AfterWaveCleared()
+        {
+            foreach (var kvp in _waveStats)
             {
-                Debug.Log($"[WaveStatistics] enemy type: {e.Key}, cnt in wave: {e.Value.CountInWave}, cnt killed: {e.Value.CountKilled}");
-            }*/
+                if (_gameStats.ContainsKey(kvp.Key))
+                {
+                    _gameStats[kvp.Key].CountKilled += kvp.Value.CountKilled;
+                }
+                else
+                {
+                    _gameStats[kvp.Key] = kvp.Value;
+                }
+            }
+            
+            OnWaveKilled?.Invoke(_waveStats);
+            Debug.Log($"[WaveStatistics] the wave is died");
         }
     }
 }
