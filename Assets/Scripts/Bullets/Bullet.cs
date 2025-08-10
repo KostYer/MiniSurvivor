@@ -77,6 +77,8 @@ namespace PlayerRelated
         {
             if (!_isAlive) return;
             _isAlive = false;
+            _rb.velocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
             _pool.Release(this);
         }
 
