@@ -53,9 +53,9 @@ namespace Core
             _player = player;
         }
 
-        public void StartWave()
+        public void StartWave(int wave)
         {
-            _currentWave++;
+            _currentWave = wave;
             var currentWaveConfig = _waveConfigs.WaveData.FirstOrDefault(p => p.WaveNumber == _currentWave);
 
             _waveStatistics.Initialize(currentWaveConfig.WaveUnits, _currentWave);
@@ -140,9 +140,13 @@ namespace Core
 
         public void Deactivate()
         {
-            StopCoroutine(_spawnCoroutine);
+             StopCoroutine(_spawnCoroutine);
             _waveStatistics.OnWaveCleared -= OnWaveClear;
             _currentWave = 0;
+            for (int i = _enemies.Count -1 ; i >= 0; i--)
+            {
+                OnEnemyDie(_enemies[i]);
+            }
         }
     }
 }

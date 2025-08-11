@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using Enemies;
 using UnityEngine;
 using Waves;
 
@@ -15,10 +13,14 @@ namespace UI
         [SerializeField] private CanvasGroup _joystickCanvas;
         [SerializeField] private CanvasGroup _wavesCanves;
         [SerializeField] private CanvasGroup _timerCanvas;
+        [SerializeField] private CanvasGroup _waveCanves;
         [SerializeField] private StatsScreen _statsScreen;
         [SerializeField] private TimerUI _timer;
+        [SerializeField] private WaveNumUI _waveNumUI;
 
+        
         public TimerUI Timer => _timer;
+        public WaveNumUI WaveNumUI => _waveNumUI;
 
         private void Awake()
         {
@@ -28,6 +30,7 @@ namespace UI
 
         public void StartButtonPressed()
         {
+            ShowStatsScreen(false);
             OnStartPressed?.Invoke();
         }
 
@@ -41,18 +44,21 @@ namespace UI
         public void WaveConfirmClick()
         {
             OnWaveEndConfirmed?.Invoke();
-            ShowCanvasGroup(_wavesCanves, false);
-            ShowCanvasGroup(_joystickCanvas, true);
-            ShowCanvasGroup(_joystickCanvas, true);
-            ShowCanvasGroup(_timerCanvas, true);
+            ShowStatsScreen(false);
         }
 
         public void OnWaveDefeated(WaveEndMessage message)
         {
             _statsScreen.Initialize(message);
-            ShowCanvasGroup(_wavesCanves, true);
-            ShowCanvasGroup(_joystickCanvas, false);
-            ShowCanvasGroup(_timerCanvas, false);
+            ShowStatsScreen(true);
+        }
+
+        private void ShowStatsScreen(bool show)
+        {
+            ShowCanvasGroup(_wavesCanves, show);
+            ShowCanvasGroup(_joystickCanvas, !show);
+            ShowCanvasGroup(_timerCanvas, !show);
+            ShowCanvasGroup(_waveCanves, !show);
         }
     }
 }
