@@ -60,6 +60,8 @@ namespace PlayerRelated
         public void SetActive(bool on)
         {
             _isActive = on;
+            
+            if(on) StartCoroutine(ShootPeriodically());
         }
     }
 }
