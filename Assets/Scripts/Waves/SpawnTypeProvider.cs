@@ -74,12 +74,6 @@ namespace Waves
         {
             IsSpawnActive = false;
             OnWaveSpawnOver?.Invoke();
-
-            /*Debug.Log($"[SpawnTypeProvider] OnSpawnEnded");
-            foreach (var e in _waveSpawns)
-            {
-                Debug.Log($"[SpawnTypeProvider] enemy type: {e.Key}, cnt in wave: {e.Value.CountInWave}, cnt spawned: {e.Value.CountSpawned}");
-            }*/
         }
     }
 }

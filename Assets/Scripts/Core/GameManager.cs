@@ -42,13 +42,10 @@ namespace Core
             _uiController.OnStartPressed += StartGame;
 
             _timeCounter.OnSecondPass += _uiController.Timer.OnTimerTick;
-        }
 
-        private void Start()
-        {
-            StartGame();
+            _uiController.ShowStartScreen();
         }
-        
+ 
         private void OnWaveEndConfirmed()
         {
             StartWave();
@@ -113,7 +110,6 @@ namespace Core
             
             Destroy(_player.gameObject);
             OnLevelEnd?.Invoke(false);
-           // _player.Show(false);
         }
         
         private void IncrementWaveNumber()

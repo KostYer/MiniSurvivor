@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Waves;
 
@@ -11,42 +12,35 @@ namespace UI
 
         [SerializeField] private CanvasGroup _mainMenuCanvas;
         [SerializeField] private CanvasGroup _joystickCanvas;
-        [SerializeField] private CanvasGroup _wavesCanves;
+        [SerializeField] private CanvasGroup _statsCanvas;
         [SerializeField] private CanvasGroup _timerCanvas;
-        [SerializeField] private CanvasGroup _waveCanves;
+        [SerializeField] private CanvasGroup _waveNumCanvas;
         [SerializeField] private StatsScreen _statsScreen;
         [SerializeField] private TimerUI _timer;
         [SerializeField] private WaveNumUI _waveNumUI;
 
+        private List<CanvasGroup> _allCanvasGroups = new();
         
         public TimerUI Timer => _timer;
         public WaveNumUI WaveNumUI => _waveNumUI;
-
-        private void Awake()
+ 
+        private void OnValidate()
         {
-       //     ShowCanvasGroup(_mainMenuCanvas, true);
-       //     ShowCanvasGroup(_joystickCanvas, false);
+            _allCanvasGroups.Add(_mainMenuCanvas);
+            _allCanvasGroups.Add(_joystickCanvas);
+            _allCanvasGroups.Add(_statsCanvas);
+            _allCanvasGroups.Add(_timerCanvas);
+            _allCanvasGroups.Add(_waveNumCanvas);
+        }
+ 
+
+        public void ShowStartScreen()
+        {
+            HideAll();
+            ShowCanvasGroup(_mainMenuCanvas, true);
         }
 
-        public void StartButtonPressed()
-        {
-            ShowStatsScreen(false);
-            OnStartPressed?.Invoke();
-        }
-
-        private void ShowCanvasGroup(CanvasGroup cv, bool show)
-        {
-            cv.alpha = show? 1 : 0;
-            cv.interactable = show;
-            cv.blocksRaycasts = show;
-        }
-
-        public void WaveConfirmClick()
-        {
-            OnWaveEndConfirmed?.Invoke();
-            ShowStatsScreen(false);
-        }
-
+     
         public void OnWaveDefeated(WaveEndMessage message)
         {
             _statsScreen.Initialize(message);
@@ -55,10 +49,48 @@ namespace UI
 
         private void ShowStatsScreen(bool show)
         {
-            ShowCanvasGroup(_wavesCanves, show);
-            ShowCanvasGroup(_joystickCanvas, !show);
-            ShowCanvasGroup(_timerCanvas, !show);
-            ShowCanvasGroup(_waveCanves, !show);
+         
+            HideAll();
+            ShowCanvasGroup(_statsCanvas, show);
         }
+
+        private void ShowGameplayCanvases()
+        {
+            HideAll();
+            ShowCanvasGroup(_joystickCanvas, true);
+            ShowCanvasGroup(_timerCanvas, true);
+            ShowCanvasGroup(_waveNumCanvas, true);
+        }
+
+        private void HideAll()
+        {
+            foreach (var canvas in _allCanvasGroups)
+            {
+                ShowCanvasGroup(canvas, false);
+            }
+        }
+        
+        private void ShowCanvasGroup(CanvasGroup cv, bool show)
+        {
+            cv.alpha = show? 1 : 0;
+            cv.interactable = show;
+            cv.blocksRaycasts = show;
+        }
+
+        #region ButtonCallbacks
+
+        public void StartButtonPressed()
+        {
+            OnStartPressed?.Invoke();
+            ShowGameplayCanvases();
+        }
+
+        public void WaveConfirmClick()
+        {
+            OnWaveEndConfirmed?.Invoke();
+            ShowGameplayCanvases();
+        }
+
+        #endregion
     }
 }
