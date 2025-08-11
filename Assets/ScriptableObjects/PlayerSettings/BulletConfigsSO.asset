@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BulletConfigsSO
   m_EditorClassIdentifier: 
   Speed: 13
-  Damage: 4.5
+  Damage: 5.1
   Lifetime: 3
   CollisionMask:
     serializedVersion: 2

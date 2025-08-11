@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52628a8408f04f9c8dde580901f096eb, type: 3}
   m_Name: HealthSettingsSO
   m_EditorClassIdentifier: 
-  _maxHealth: 10
+  _maxHealth: 12

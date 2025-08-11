@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shootRange: 6
   _shootRate: 1
-  _stopRange: 4
+  _stopRange: 2
