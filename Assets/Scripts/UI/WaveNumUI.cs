@@ -7,10 +7,9 @@ namespace UI
     {
         [SerializeField] private TMP_Text _waveNumber;
 
-
         public void OnWaveChanged(int wave)
         {
-            _waveNumber.text = $"Wave {wave}";
+            _waveNumber.text = $"wave {wave}";
         }
     }
 }
