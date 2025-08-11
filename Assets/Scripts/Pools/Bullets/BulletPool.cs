@@ -1,20 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Core;
 using Factories;
 using PlayerRelated;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Pools
 {
     public class BulletPool : MonoBehaviour, IBulletPool
     {
-
-        [System.Serializable]
+        [Serializable]
         private class BulletPoolEntry
         {
             public BulletType Type;
             public Bullet Prefab;
             public int InitialSize = 10;
         }
+        public event Action<bool> OnForceStop;
       
         [SerializeField] private List<BulletPoolEntry> _bulletPools = new();
         [SerializeField] private Transform _bulletsRoot;
@@ -22,8 +25,11 @@ namespace Pools
         private readonly Dictionary<BulletType, Queue<Bullet>> _pools = new();
         private readonly Dictionary<BulletType, BulletPoolEntry> _entries = new();
 
-        public void Initialize()
+
+        public void Initialize(GameManager gameManager)
         {
+            gameManager.OnLevelEnd += ForceStop;
+            
             foreach (var entry in _bulletPools)
             {
                 _entries.Add(entry.Type, entry);
@@ -38,6 +44,8 @@ namespace Pools
                     bullet.SetPool(this);
                     bullet.OnDespawned();
                     queue.Enqueue(bullet);
+
+                  //  CreateNewBullet(entry.Key);
                 }
 
                 _pools[entry.Key] = queue;
@@ -60,7 +68,7 @@ namespace Pools
           
             bullet.OnSpawned();
 
-            bullet.gameObject.SetActive(true);
+           // bullet.gameObject.SetActive(true);
             return bullet;
         }
 
@@ -95,6 +103,13 @@ namespace Pools
             bullet.OnDespawned();
             return bullet;
         }
+        
+        
+        private void ForceStop(bool on)
+        {
+            OnForceStop?.Invoke(on);
+        }
+
         
     }
 }

@@ -36,7 +36,7 @@ public class EnterPoint : MonoBehaviour
 
     private void BuildGraph()
     {
-        _bulletPool.Initialize();
+        _bulletPool.Initialize(_gameManager);
         _playerSpawner.Initialize(_playerFactory);
         _enemySpawner.Initialize(_enemyFactory);
         _wavesManager.Initialize(_waveConfigs, _enemySpawner, _enemySpawnPointProvider, _bulletPool);

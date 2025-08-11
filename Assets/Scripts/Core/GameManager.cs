@@ -12,7 +12,7 @@ namespace Core
     public class GameManager : MonoBehaviour
     {
         public Action OnLevelStart = default;
-        public Action OnLevelEnd = default;
+        public Action<bool> OnLevelEnd = default;
         public Action OnGameOver = default;
         
         private IInputProvider _inputProvider;
@@ -25,6 +25,8 @@ namespace Core
         private TimeCounter _timeCounter;
         
         public CinemachineVirtualCamera virtualCamera;
+
+        private int _currentWave = 0;
         
         public void Initialize(IInputProvider inputProvider, IPlayerSpawner playerSpawner, WavesManager wavesManager, MainMenuUIController uiController, IBulletPool bulletPool, TimeCounter timeCounter)
         {
@@ -37,6 +39,7 @@ namespace Core
 
             _wavesManager.OnWaveCleared += OnWaveCleared;
             _uiController.OnWaveEndConfirmed += OnWaveEndConfirmed;
+            _uiController.OnStartPressed += StartGame;
 
             _timeCounter.OnSecondPass += _uiController.Timer.OnTimerTick;
         }
@@ -53,6 +56,7 @@ namespace Core
 
         private void StartGame()
         {
+            _currentWave = 0;
             SpawnPlayer();
             _wavesManager.SetPlayer(_player.transform);
             StartWave();
@@ -60,11 +64,13 @@ namespace Core
         
         private void StartWave()
         {
+            IncrementWaveNumber();
             _player.Show(true);
             _player.Reset();
-            _wavesManager.StartWave();
+            _wavesManager.StartWave(_currentWave);
             _timeCounter.StartTimer();
         }
+
      
         private void SpawnPlayer()
         {
@@ -90,6 +96,7 @@ namespace Core
             SendStats(message);
             _player.Show(false);
             _timeCounter.StopCounter();
+            OnLevelEnd?.Invoke(true);
         }
 
         private void SendStats(WaveEndMessage message)
@@ -100,10 +107,19 @@ namespace Core
 
         private void InvokeGameOver()
         {
+            Debug.Log($"[InvokeGameOver]");
             _wavesManager.Deactivate();
             _timeCounter.StopCounter();
             
-            _player.Show(false);
+            Destroy(_player.gameObject);
+            OnLevelEnd?.Invoke(false);
+           // _player.Show(false);
+        }
+        
+        private void IncrementWaveNumber()
+        {
+            _currentWave++;
+            _uiController.WaveNumUI.OnWaveChanged(_currentWave);
         }
     }
 }

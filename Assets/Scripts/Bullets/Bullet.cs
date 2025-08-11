@@ -55,6 +55,7 @@ namespace PlayerRelated
         public void SetPool(IBulletPool pool)
         {
             _pool = pool;
+            pool.OnForceStop += ForceDespawn;
         }
         
         public void LaunchBullet(Vector3 direction)
@@ -85,6 +86,11 @@ namespace PlayerRelated
         private IEnumerator DieAfterDelay(float delay)
         {
             yield return new WaitForSeconds(delay);
+            OnDie();
+        }
+
+        private void ForceDespawn(bool on)
+        {
             OnDie();
         }
     }
