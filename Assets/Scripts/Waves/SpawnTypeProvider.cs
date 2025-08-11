@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Enemies;
-using UnityEngine;
 using WaveSettings;
 
 namespace Waves
@@ -52,7 +51,6 @@ namespace Waves
         public EnemyType GetAvailableType()
         {
             if (!IsSpawnActive) return EnemyType.None;
-            Debug.Log($"[GetAvailableType] _availableTypes.Count {_availableTypes.Count}");
             if (_availableTypes.Count == 0) return EnemyType.None;
 
             return _availableTypes[UnityEngine.Random.Range(0, _availableTypes.Count - 1)];
@@ -77,11 +75,11 @@ namespace Waves
             IsSpawnActive = false;
             OnWaveSpawnOver?.Invoke();
 
-            Debug.Log($"[SpawnTypeProvider] OnSpawnEnded");
+            /*Debug.Log($"[SpawnTypeProvider] OnSpawnEnded");
             foreach (var e in _waveSpawns)
             {
                 Debug.Log($"[SpawnTypeProvider] enemy type: {e.Key}, cnt in wave: {e.Value.CountInWave}, cnt spawned: {e.Value.CountSpawned}");
-            }
+            }*/
         }
     }
 }

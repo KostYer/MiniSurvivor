@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Waves;
@@ -22,6 +23,8 @@ namespace UI
         {
             _result.text = message.IsVictory ? "Victory" : "Defeat";
             _buttonText.text = message.IsVictory ? "Continue" : "Start Over";
+
+            _timer.text = FormatTimer(message.Timer);
             
             int i = 0;
             foreach (var kvp in message.Stats)
@@ -45,6 +48,12 @@ namespace UI
             cv.alpha = show? 1 : 0;
             cv.interactable = show;
             cv.blocksRaycasts = show;
+        }
+
+        private string FormatTimer(float timer)
+        {
+            TimeSpan time = TimeSpan.FromSeconds(timer);
+            return $"{time.Minutes:D2}:{time.Seconds:D2}";
         }
     }
 }
