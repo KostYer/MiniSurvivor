@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 3493317926086948364}
   - component: {fileID: -95745644775049481}
   - component: {fileID: 6478926786710428440}
+  - component: {fileID: 6842443675342521008}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -193,6 +194,7 @@ MonoBehaviour:
   closestEnemyProvider: {fileID: 6478926786710428440}
   _rangeDrawerUI: {fileID: 7829537048384262971}
   _healthbar: {fileID: 4714554960321407000}
+  _destructionData: {fileID: 6842443675342521008}
   _movementSettings: {fileID: 11400000, guid: ecaa051fb8001724fb601ad530197c64, type: 2}
   _shootSettings: {fileID: 11400000, guid: 6abd939c2433364418ad10bdfb2dc2eb, type: 2}
   _bulletConfigs: {fileID: 11400000, guid: 7fd3ff16304e2cd4db881cf54c3642e8, type: 2}
@@ -263,6 +265,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3614587ec79470d9cc3a939933659c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6842443675342521008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6566939114101018295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc8c035bcdb54cf1a7ea18515cf030ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dieParticlesType: 1
+  _yoffset: 0.7
 --- !u!1 &8757914694817934198
 GameObject:
   m_ObjectHideFlags: 0

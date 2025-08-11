@@ -1,6 +1,7 @@
 ﻿using System;
 using Core;
 using Factories;
+using Particles;
 using PlayerRelated;
 using Pools;
 using Settings;
@@ -23,8 +24,11 @@ namespace Enemies
         [SerializeField] private ShootSettings _shootSettings;
         [SerializeField] private HealthSettings _healthSettings;
         [SerializeField] private MovementSettings _movementSettings;
+        [SerializeField] private DestructionDataHolder _destructionData;
         
         private IInputProvider _enemyInput;
+        private IParticlesPool _particlesPool;
+        
         public EnemyType Type => _type;
 
         private void OnValidate()
@@ -34,23 +38,27 @@ namespace Enemies
             _shooter = GetComponent<Shooter>();
             _health = GetComponent<Health>();
             _characterController = GetComponent<CharacterController>();
+            _destructionData = GetComponent<DestructionDataHolder>();
             
             _characterController.enabled = false;
         }
 
-        public void Initialize(Transform player, IBulletPool bulletPool)
+        public void Initialize(Transform player, IBulletPool bulletPool, IParticlesPool particlesPool)
         {
             _enemyMovementInput.Initialize(_shootSettings, player);
             _movement.Initialize(_enemyMovementInput, _movementSettings);
             _proximityToPlayerProvider.Initialize(player);
             _shooter.Initialize(_proximityToPlayerProvider, _shootSettings,_bulletConfigs,bulletPool);
             _health.Initialize(_healthSettings);
-      
+
+            _particlesPool = particlesPool;
             _health.OnHealthDepleted += OnHealthDepleted;
         }
 
         private void OnHealthDepleted()
         {
+            var yOffset = new Vector3(0f, _destructionData.YSpawnOffset, 0f);
+            _particlesPool.Get(_destructionData.DieParticlesType, transform.position + yOffset, transform.rotation);
             OnEnemyDied?.Invoke(this);
         }
     }

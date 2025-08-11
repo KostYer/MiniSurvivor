@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 4056598045730889344}
   - component: {fileID: 7484735985717029464}
   - component: {fileID: 8693979514211783252}
+  - component: {fileID: 8863121002424330021}
   m_Layer: 7
   m_Name: EnemyBase
   m_TagString: Untagged
@@ -133,7 +134,7 @@ CharacterController:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Height: 2
   m_Radius: 0.5
@@ -156,13 +157,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _type: 1
   _movement: {fileID: 4056598045730889344}
+  _characterController: {fileID: 8800022009535089794}
   _shooter: {fileID: 7484735985717029464}
-  enemyMovementInput: {fileID: 8345623150679187177}
+  _health: {fileID: 3021352465590661668}
+  _enemyMovementInput: {fileID: 8345623150679187177}
   _proximityToPlayerProvider: {fileID: 8693979514211783252}
   _bulletConfigs: {fileID: 11400000, guid: 6b8a1d655c61534439c9126fdf31cafc, type: 2}
   _shootSettings: {fileID: 11400000, guid: bb0e93831abdb2e41977ca52754f3427, type: 2}
   _healthSettings: {fileID: 11400000, guid: 86d84083d067bbd49b8f4611bb3a4cf7, type: 2}
   _movementSettings: {fileID: 11400000, guid: f0bd8efa0d6d9e14a87eadc6d7c5dcfd, type: 2}
+  _destructionData: {fileID: 8863121002424330021}
 --- !u!114 &3021352465590661668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shootPoint: {fileID: 4989291948508666173}
+  _bulletType: 0
 --- !u!114 &8693979514211783252
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +242,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66da8a32fada4cd8986f4549c4df95df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8863121002424330021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57752387419012279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc8c035bcdb54cf1a7ea18515cf030ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dieParticlesType: 0
+  _yoffset: 0.7
 --- !u!1 &7277661143695570409
 GameObject:
   m_ObjectHideFlags: 0

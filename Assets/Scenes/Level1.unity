@@ -140,6 +140,7 @@ GameObject:
   - component: {fileID: 91153964}
   - component: {fileID: 91153965}
   - component: {fileID: 91153966}
+  - component: {fileID: 91153967}
   m_Layer: 0
   m_Name: EnterPoint
   m_TagString: Untagged
@@ -169,6 +170,7 @@ MonoBehaviour:
   _uiController: {fileID: 1947684535}
   _wavesManager: {fileID: 91153964}
   _bulletPool: {fileID: 91153965}
+  _particlesPool: {fileID: 91153967}
   _timeCounter: {fileID: 91153966}
 --- !u!4 &91153958
 Transform:
@@ -290,6 +292,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa15609334aa460c84637fcc9f56ff79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &91153967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 91153956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d39f8501192b415880267a71f934054b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bulletPools:
+  - Type: 1
+    Prefab: {fileID: 1278198637809195986, guid: 27c786083739d3e43ade8c93ca806194,
+      type: 3}
+    InitialSize: 10
+  - Type: 2
+    Prefab: {fileID: 1689513285054683341, guid: 6bc54028c0ea1a647b7f2e04c1c777c6,
+      type: 3}
+    InitialSize: 10
+  - Type: 3
+    Prefab: {fileID: 5369239841413776783, guid: 8d4b8d83193bf774b815af1c0bcd13b0,
+      type: 3}
+    InitialSize: 10
+  - Type: 4
+    Prefab: {fileID: 2408383600917202046, guid: f0a3833c40707e54ba11e7f65df92db3,
+      type: 3}
+    InitialSize: 10
+  _vfxRoot: {fileID: 551175116}
 --- !u!1 &202403013
 GameObject:
   m_ObjectHideFlags: 0
@@ -1650,6 +1682,37 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!1 &551175115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 551175116}
+  m_Layer: 0
+  m_Name: VfxRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &551175116
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551175115}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &696623132
 GameObject:
   m_ObjectHideFlags: 0
@@ -4729,6 +4792,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 91153958}
   - {fileID: 2061530160}
+  - {fileID: 551175116}
   - {fileID: 1947684536}
   - {fileID: 330585546}
   - {fileID: 1428982160}

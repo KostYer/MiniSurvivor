@@ -1,6 +1,7 @@
 ﻿using System;
 using Core;
 using Factories;
+using Particles;
 using PlayerUI;
 using Pools;
 using Settings;
@@ -14,6 +15,7 @@ namespace PlayerRelated
         public event Action OnPlayerDie = default;
         
         private IWavesProvider _wavesProvider;
+        private IParticlesPool _particlesPool;
         
         [SerializeField] private Movement _movement;
         [SerializeField] private Shooter _shooter;
@@ -21,6 +23,7 @@ namespace PlayerRelated
         [SerializeField] private ClosestEnemyProvider closestEnemyProvider;
         [SerializeField] private RangeDrawerUI _rangeDrawerUI;
         [SerializeField] private HealthbarUI _healthbar;
+        [SerializeField] private DestructionDataHolder _destructionData;
        
         [Space]
         [Header("Settings")]
@@ -40,11 +43,12 @@ namespace PlayerRelated
             _movement = GetComponent<Movement>();
             _shooter = GetComponent<Shooter>();
             _health = GetComponent<Health>();
+            _destructionData = GetComponent<DestructionDataHolder>();
             
             closestEnemyProvider = GetComponent<ClosestEnemyProvider>();
         }
 
-        public void Initialize(IInputProvider inputProvider, IWavesProvider wavesProvider, IBulletPool bulletPool)
+        public void Initialize(IInputProvider inputProvider, IWavesProvider wavesProvider, IBulletPool bulletPool, IParticlesPool vfxPool)
         { 
             closestEnemyProvider.Initialize(wavesProvider);
             _movement.Initialize(inputProvider, _movementSettings);
@@ -55,6 +59,7 @@ namespace PlayerRelated
            _healthbar.Initialize(_health);
          
             _wavesProvider = wavesProvider;
+            _particlesPool = vfxPool;
 
             _health.OnHealthDepleted += OnHealthDepleted;
         }
