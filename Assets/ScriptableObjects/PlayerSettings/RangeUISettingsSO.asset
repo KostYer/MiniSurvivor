@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c05b6f7866314273adcd3ccfffd42eb4, type: 3}
   m_Name: RangeUISettingsSO
   m_EditorClassIdentifier: 
-  _circleColor: {r: 0.8509804, g: 0.80207336, b: 0.2509804, a: 0.2627451}
-  _edgeColor: {r: 0.99215686, g: 0.66472375, b: 0.01568625, a: 0.34901962}
+  _circleColor: {r: 1, g: 0.9215686, b: 0, a: 0.14901961}
+  _edgeColor: {r: 1, g: 0.97185034, b: 0, a: 0.4392157}
   _visualEpsilon: 0.3
