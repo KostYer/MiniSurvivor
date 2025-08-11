@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ShootSettingsSO
   m_EditorClassIdentifier: 
   _shootRange: 8
-  _shootRate: 2
-  _stopRange: 4
+  _shootRate: 1.5
+  _stopRange: 2

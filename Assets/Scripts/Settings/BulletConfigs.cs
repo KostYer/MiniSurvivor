@@ -7,7 +7,7 @@ namespace Factories
     {
     //    public GameObject Prefab;
         public float Speed;
-        public int Damage;
+        public float Damage;
         public float Lifetime;
         public LayerMask CollisionMask;
         public BulletTeam Team; // Player, Enemy, Neutral
