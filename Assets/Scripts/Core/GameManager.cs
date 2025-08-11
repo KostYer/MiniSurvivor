@@ -1,5 +1,6 @@
 ﻿using System;
 using Cinemachine;
+using Particles;
 using PlayerRelated;
 using Pools;
 using Spawn;
@@ -22,13 +23,14 @@ namespace Core
         private WavesManager _wavesManager;
         private Player _player;
         private IBulletPool _bulletsPool;
+        private IParticlesPool _particlesPool;
         private TimeCounter _timeCounter;
         
         public CinemachineVirtualCamera virtualCamera;
 
         private int _currentWave = 0;
         
-        public void Initialize(IInputProvider inputProvider, IPlayerSpawner playerSpawner, WavesManager wavesManager, MainMenuUIController uiController, IBulletPool bulletPool, TimeCounter timeCounter)
+        public void Initialize(IInputProvider inputProvider, IPlayerSpawner playerSpawner, WavesManager wavesManager, MainMenuUIController uiController, IBulletPool bulletPool, TimeCounter timeCounter, IParticlesPool vfxPool)
         {
             _inputProvider = inputProvider;
             _playerSpawner = playerSpawner;
@@ -36,6 +38,7 @@ namespace Core
             _uiController = uiController;
             _bulletsPool = bulletPool;
             _timeCounter = timeCounter;
+            _particlesPool = vfxPool;
 
             _wavesManager.OnWaveCleared += OnWaveCleared;
             _uiController.OnWaveEndConfirmed += OnWaveEndConfirmed;
@@ -72,7 +75,7 @@ namespace Core
         private void SpawnPlayer()
         {
             _player = _playerSpawner.SpawnPlayer();
-            _player.Initialize(_inputProvider, _wavesManager, _bulletsPool);
+            _player.Initialize(_inputProvider, _wavesManager, _bulletsPool, _particlesPool);
            
             virtualCamera.Follow = _player.transform;
             virtualCamera.LookAt =  _player.transform;
@@ -104,7 +107,6 @@ namespace Core
 
         private void InvokeGameOver()
         {
-            Debug.Log($"[InvokeGameOver]");
             _wavesManager.Deactivate();
             _timeCounter.StopCounter();
             

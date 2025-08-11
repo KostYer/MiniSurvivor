@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Core;
 using Factories;
+using Particles;
 using PlayerRelated;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -25,11 +26,10 @@ namespace Pools
         private readonly Dictionary<BulletType, Queue<Bullet>> _pools = new();
         private readonly Dictionary<BulletType, BulletPoolEntry> _entries = new();
 
-
         public void Initialize(GameManager gameManager)
         {
             gameManager.OnLevelEnd += ForceStop;
-            
+
             foreach (var entry in _bulletPools)
             {
                 _entries.Add(entry.Type, entry);

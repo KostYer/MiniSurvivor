@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Enemies;
+using Particles;
 using Pools;
 using Spawn;
 using UnityEngine;
@@ -23,6 +24,7 @@ namespace Core
         private IEnemySpawner _spawner;
         private Transform _player;
         private IBulletPool _bulletPool;
+        private IParticlesPool _particlesPool;
         private ISpawnPointProvider _pointProvider;
         private WaveStatistics _waveStatistics = new();
         private SpawnTypeProvider _spawnTypeProvider;
@@ -39,13 +41,14 @@ namespace Core
         public WaveStatistics WaveStatistics => _waveStatistics;
         
         
-        public void Initialize(WaveConfigs waveConfigs, IEnemySpawner spawner, ISpawnPointProvider pointsProvider, IBulletPool bulletPool)
+        public void Initialize(WaveConfigs waveConfigs, IEnemySpawner spawner, ISpawnPointProvider pointsProvider, IBulletPool bulletPool, IParticlesPool vfxPool)
         {
             _waveConfigs = waveConfigs;
             _spawner = spawner;
             _pointProvider = pointsProvider;
             _bulletPool = bulletPool;
             _spawnRate = waveConfigs.SpawRate;
+            _particlesPool = vfxPool;
         }
 
         public void SetPlayer(Transform player)
@@ -110,7 +113,7 @@ namespace Core
         {
             var enemy = _spawner.SpawnEnemy(type, pos);
             enemy.OnEnemyDied += OnEnemyDie;
-            enemy.Initialize(_player.transform, _bulletPool);
+            enemy.Initialize(_player.transform, _bulletPool, _particlesPool);
             _enemies.Add(enemy);
             _spawnTypeProvider.OnEnemySpawned(type);
         }
