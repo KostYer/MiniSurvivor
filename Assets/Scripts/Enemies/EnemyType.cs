@@ -2,9 +2,9 @@
 {
     public enum EnemyType
     {
-        None, 
-        Green,
-        Blue,
-        Red,
+        None = 0, 
+        Green = 1,
+        Blue = 2,
+        Red = 3,
     }
 }

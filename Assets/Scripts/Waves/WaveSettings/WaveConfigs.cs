@@ -62,7 +62,9 @@ namespace WaveSettings
             var enemyTypes = Enum.GetValues(typeof(EnemyType))
                 .Cast<EnemyType>()
                 .Where(type => type != EnemyType.None)
+                .OrderByDescending(type => type) 
                 .ToArray();
+         
 
             if (_waveUnits == null || _waveUnits.Length != enemyTypes.Length)
             {
