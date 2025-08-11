@@ -68,6 +68,30 @@ PrefabInstance:
       propertyPath: _type
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1609811117065649402, guid: 0edbe87e51aea4f42a8b51c49ae6d10a,
+        type: 3}
+      propertyPath: _bulletConfigs
+      value: 
+      objectReference: {fileID: 11400000, guid: f6e1a4087749e264d9de441b97a517a2,
+        type: 2}
+    - target: {fileID: 1609811117065649402, guid: 0edbe87e51aea4f42a8b51c49ae6d10a,
+        type: 3}
+      propertyPath: _shootSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: 217412b74ffa43042a9e068d1bb3d2d7,
+        type: 2}
+    - target: {fileID: 1609811117065649402, guid: 0edbe87e51aea4f42a8b51c49ae6d10a,
+        type: 3}
+      propertyPath: _healthSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: 956eee3b0f9fc3840a41449e4d8f4c50,
+        type: 2}
+    - target: {fileID: 1609811117065649402, guid: 0edbe87e51aea4f42a8b51c49ae6d10a,
+        type: 3}
+      propertyPath: _movementSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: b77bfc39e069eb14e914073ee8dc52fe,
+        type: 2}
     - target: {fileID: 5790634345080075046, guid: 0edbe87e51aea4f42a8b51c49ae6d10a,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

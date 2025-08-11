@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4a602031d2449858027fc145d1a47d6, type: 3}
   m_Name: MovementSettingsSO
   m_EditorClassIdentifier: 
-  _movementSpeed: 2
-  _speedChangeRate: 1
+  _movementSpeed: 5
+  _speedChangeRate: 3
   _rotationSmoothTime: 0.12

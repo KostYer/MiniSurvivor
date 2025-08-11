@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d15e05d096c4862b5294a83c94c102a, type: 3}
   m_Name: BulletConfigsSO
   m_EditorClassIdentifier: 
-  Speed: 22
-  Damage: 11
+  Speed: 15
+  Damage: 10
   Lifetime: 3
   CollisionMask:
     serializedVersion: 2

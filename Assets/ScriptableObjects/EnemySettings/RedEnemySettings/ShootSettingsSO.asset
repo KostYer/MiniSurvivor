@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a06f4e2169594b138b14de0e92b0eca7, type: 3}
   m_Name: ShootSettingsSO
   m_EditorClassIdentifier: 
-  _shootRange: 5
+  _shootRange: 8
   _shootRate: 2
-  _damage: 1
-  _stopRange: 3
+  _stopRange: 4
