@@ -1,2 +1,2 @@
-!\[](Other/mini\_survivors\_github.gif)
+!\[](mini\_survivors\_github.gif)
 
