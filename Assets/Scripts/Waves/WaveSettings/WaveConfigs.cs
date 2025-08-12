@@ -19,8 +19,19 @@ namespace WaveSettings
         public Vector2 SpawnRangeMinMaxInitial => _spawnRangeMinMaxInitial;
         public List<WaveData> WaveData => _waveData;
         public float SpawRate => _spawnRate;
-      
+
+
         private void OnValidate()
+        {
+            Actualize();
+        }
+
+        public void Initialize()
+        {
+            Actualize();
+        }
+
+        private void Actualize()
         {
             foreach (var wave in _waveData)
             {
@@ -62,7 +73,7 @@ namespace WaveSettings
             var enemyTypes = Enum.GetValues(typeof(EnemyType))
                 .Cast<EnemyType>()
                 .Where(type => type != EnemyType.None)
-                .OrderByDescending(type => type) 
+                .OrderBy(type => type) 
                 .ToArray();
          
 

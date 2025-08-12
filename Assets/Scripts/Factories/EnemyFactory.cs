@@ -15,7 +15,18 @@ namespace Core
         [SerializeField] private List<Enemy> _enemies = new();
         private Dictionary<EnemyType, Enemy> _enemiesDictionary = new();
 
+
+        public void Initialize()
+        {
+            Actualize();
+        }
+
         private void OnValidate()
+        {
+            Actualize();
+        }
+
+        private void Actualize()
         {
             if(_enemies.Count == 0) return;
             

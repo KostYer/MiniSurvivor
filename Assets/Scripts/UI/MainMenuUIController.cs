@@ -23,8 +23,8 @@ namespace UI
         
         public TimerUI Timer => _timer;
         public WaveNumUI WaveNumUI => _waveNumUI;
- 
-        private void OnValidate()
+
+        public void Initialize()
         {
             _allCanvasGroups.Add(_mainMenuCanvas);
             _allCanvasGroups.Add(_joystickCanvas);
@@ -32,8 +32,7 @@ namespace UI
             _allCanvasGroups.Add(_timerCanvas);
             _allCanvasGroups.Add(_waveNumCanvas);
         }
- 
-
+        
         public void ShowStartScreen()
         {
             HideAll();
@@ -64,7 +63,7 @@ namespace UI
 
         private void HideAll()
         {
-            foreach (var canvas in _allCanvasGroups)
+             foreach (var canvas in _allCanvasGroups)
             {
                 ShowCanvasGroup(canvas, false);
             }
@@ -81,8 +80,8 @@ namespace UI
 
         public void StartButtonPressed()
         {
-            OnStartPressed?.Invoke();
             ShowGameplayCanvases();
+            OnStartPressed?.Invoke();
         }
 
         public void WaveConfirmClick()
@@ -92,5 +91,7 @@ namespace UI
         }
 
         #endregion
+
+       
     }
 }

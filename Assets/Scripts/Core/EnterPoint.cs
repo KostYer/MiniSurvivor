@@ -34,16 +34,25 @@ public class EnterPoint : MonoBehaviour
 
     private void Awake()
     {
+        ActualizeScriptableSettings();
+        
         BuildGraph();
     }
 
     private void BuildGraph()
     {
+        _uiController.Initialize();
         _particlesPool.Initialize();
         _bulletPool.Initialize(_gameManager);
         _playerSpawner.Initialize(_playerFactory);
         _enemySpawner.Initialize(_enemyFactory);
         _wavesManager.Initialize(_waveConfigs, _enemySpawner, _enemySpawnPointProvider, _bulletPool, _particlesPool);
         _gameManager.Initialize(_inputProvider, _playerSpawner, _wavesManager, _uiController, _bulletPool, _timeCounter, _particlesPool);
+    }
+
+    private void ActualizeScriptableSettings()
+    {
+        _waveConfigs.Initialize();
+        _enemyFactory.Initialize();
     }
 }
