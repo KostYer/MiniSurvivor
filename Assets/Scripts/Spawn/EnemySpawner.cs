@@ -11,6 +11,8 @@ namespace Spawn
     public class EnemySpawner: MonoBehaviour, IEnemySpawner
     {
         private IEnemyFactory _enemyFactory;
+
+        [SerializeField] private Transform _enemiesRoot;
         public void Initialize(IEnemyFactory enemyFactory)
         {
             _enemyFactory = enemyFactory;
@@ -20,6 +22,7 @@ namespace Spawn
         {
             var enemy = _enemyFactory.CreateEnemy(enemyType);
             enemy.transform.position = pos;
+            enemy.transform.parent = _enemiesRoot;
             return enemy;
         }
     }
