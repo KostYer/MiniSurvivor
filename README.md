@@ -1,2 +1,2 @@
-!\[](minisurv.gif)
+![](minisurv.gif)
 
