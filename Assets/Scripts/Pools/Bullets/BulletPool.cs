@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Core;
 using Factories;
-using Particles;
 using PlayerRelated;
 using UnityEngine;
 using Object = UnityEngine.Object;

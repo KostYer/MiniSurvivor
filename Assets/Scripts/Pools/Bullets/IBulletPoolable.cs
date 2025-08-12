@@ -1,5 +1,4 @@
-﻿using Particles;
-using PlayerRelated;
+﻿using PlayerRelated;
 
 namespace Pools
 {

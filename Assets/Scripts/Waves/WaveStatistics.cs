@@ -77,7 +77,6 @@ namespace Waves
             }
             
             OnWaveCleared?.Invoke();
-            Debug.Log($"[WaveStatistics] the wave is died");
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Core;
-using Enemies;
 using UnityEngine;
 using Object = UnityEngine.Object;
 

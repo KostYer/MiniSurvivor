@@ -87,13 +87,6 @@ namespace PlayerRelated
             // move the player
             _characterController.Move(targetDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0f, -9.8f, 0f));
         }
-        
-        void OnGUI()
-        {
-            /*GUILayout.BeginArea(new Rect(10, 10, 200, 100), GUI.skin.box);
-            GUILayout.Label($"targetSpeed: {_debugTargetSpeed}");
-            GUILayout.Label($"_speed: {_speed:F2}");
-            GUILayout.EndArea();*/
-        }
+    
     }
 }

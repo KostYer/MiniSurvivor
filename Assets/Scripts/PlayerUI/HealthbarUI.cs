@@ -1,5 +1,4 @@
-﻿using System;
-using PlayerRelated;
+﻿using PlayerRelated;
 using UnityEngine;
 using UnityEngine.UI;
 
