@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c97ce464d30f4f48bd1a56d877210cd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 1
+  _type: 0
   _movement: {fileID: 4056598045730889344}
   _characterController: {fileID: 8800022009535089794}
   _shooter: {fileID: 7484735985717029464}
